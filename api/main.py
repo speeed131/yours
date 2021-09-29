@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from api.routers import auth, fav, images
+from api.routers import auth
 
 
 app = FastAPI()

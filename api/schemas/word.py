@@ -1,31 +1,16 @@
-from typing import Optional
+from typing import Optional, DateTime
 
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
-class User(BaseModel):
+class Word(BaseModel):
     id: int
-    username: str
-    email: Optional[str]
-    disabled: Optional[bool] = None
-
-class UserInDB(User):
-    hashed_password: str
-    class Config:
-        orm_mode = True
-
-class UserCreate(BaseModel):
-    username: str = Field(example="daiki")
-    password: str = Field(example="hirose")
-
-class UserResponse(BaseModel):
-    id: int
-    class Config:
-        orm_mode = True
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class TokenData(BaseModel):
-    username: Optional[str] = None
+    user_id: int
+    name: str
+    meaning_japanese: str
+    meaning_english: str
+    memo: str
+    is_rememberd: bool
+    rememberd_at: Optional[DateTime]
+    created_at: DateTime
+    updated_at: DateTime

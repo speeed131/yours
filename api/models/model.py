@@ -6,7 +6,9 @@ from sqlalchemy.dialects.mysql import TIMESTAMP as Timestamp
 
 from api.db import Base
 
-#@FIX:リファクタそれぞれのモデルファイルを定義する
+# @FIX:リファクタそれぞれのモデルファイルを定義する
+
+
 class User(Base):
     __tablename__ = "users"
 
@@ -19,9 +21,11 @@ class User(Base):
     updated_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp on update current_timestamp'))
 
+    # tenant = relationship("Tenant", back_populates="ip_restrictions")
 
-#多対多のテーブルの作り方  https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html?highlight=many#many-to-many
-    
+
+# 多対多のテーブルの作り方  https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html?highlight=many#many-to-many
+
 class Word(Base):
     __tablename__ = "words"
 
@@ -38,10 +42,9 @@ class Word(Base):
     updated_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp on update current_timestamp'))
 
-    user = relationship("User", back_populates="word")
-    memo = relationship("", back_populates="word")
-    
-    
+    # user = relationship("User", back_populates="word")
+
+
 class Memo_words(Base):
     __tablename__ = "memo_words"
 
@@ -52,14 +55,14 @@ class Memo_words(Base):
                         server_default=text('current_timestamp'))
     updated_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp on update current_timestamp'))
-    
-    word = relationship("Word", back_populates="memo_word")
-    memo = relationship("Memo", back_populates="memo_word")
-    
+
+    # word = relationship("Word", back_populates="memo_word")
+    # memo = relationship("Memo", back_populates="memo_word")
+
 
 class Memo(Base):
     __tablename__ = "memos"
-    
+
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     meaning_japanese = Column(Text)
@@ -71,6 +74,4 @@ class Memo(Base):
     updated_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp on update current_timestamp'))
 
-    user = relationship("User", back_populates="memo")
-    
-    
+    # user = relationship("User", back_populates="memo")

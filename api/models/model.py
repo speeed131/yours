@@ -45,26 +45,27 @@ class Word(Base):
     # user = relationship("User", back_populates="word")
 
 
-class Memo_words(Base):
-    __tablename__ = "memo_words"
+class Dailies_words(Base):
+    __tablename__ = "dailies_words"
 
     id = Column(Integer, primary_key=True)
     word_id = Column(Integer, ForeignKey("words.id"), nullable=False)
-    memo_id = Column(Integer, ForeignKey("memos.id"), nullable=False)
+    daily_id = Column(Integer, ForeignKey("dailies.id"), nullable=False)
     created_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp'))
     updated_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp on update current_timestamp'))
 
-    # word = relationship("Word", back_populates="memo_word")
-    # memo = relationship("Memo", back_populates="memo_word")
+    # word = relationship("Word", back_populates="daily_word")
+    # daily = relationship("Daily", back_populates="daily_word")
 
 
-class Memo(Base):
-    __tablename__ = "memos"
+class Daily(Base):
+    __tablename__ = "dailies"
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    title = Column(String(255))
     meaning_japanese = Column(Text)
     meaning_english = Column(Text)
     is_open = Column(Boolean, default=False)
@@ -74,4 +75,4 @@ class Memo(Base):
     updated_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp on update current_timestamp'))
 
-    # user = relationship("User", back_populates="memo")
+    # user = relationship("User", back_populates="daily")

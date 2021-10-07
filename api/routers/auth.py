@@ -19,6 +19,7 @@ router = APIRouter()
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+
 @router.post("/register", response_model=auth_schemas.Token)
 async def register(
     register_data: auth_schemas.UserCreate,
@@ -33,6 +34,8 @@ async def register(
     return {"access_token": access_token, "token_type": "bearer"}
 
 # ログイン機能
+
+
 @router.post("/token", response_model=auth_schemas.Token)
 async def login_for_access_token(
         form_data: auth_schemas.UserCreate,

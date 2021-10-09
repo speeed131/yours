@@ -32,11 +32,11 @@ def get_word_detail(
 
 @router.get("/words/create", response_model=schemas_word.Word)
 def create_word(
+    word_data: schemas_word.Word,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user)
 ):
     # [バックエンド] 単語の新規作成機能
-
-    return schemas_word.Word
+    return create_word(word_data, current_user)
 
 
 @router.get("/words/{word_id}/delete", response_model=schemas_word.Word)

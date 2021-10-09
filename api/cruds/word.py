@@ -12,8 +12,6 @@ from api.db import get_db
 from typing import Optional, Any, List
 
 
-
-
 async def get_words_list_by_user(
     current_user: schemas_auth.User,
     db: AsyncSession = Depends(get_db)
@@ -23,4 +21,15 @@ async def get_words_list_by_user(
     )
     return result.all()
 
+
+async def create_word(
+    word_data: schemas_word.Word,
+    current_user: schemas_auth.User,
+    db: AsyncSession = Depends(get_db)
+) -> model.Word:
+    converted_word_data = model.Word(**word_data.dict())
+    db.add(converted_word_data)
+    await db.commit()
+    await db.refresh(converted_word_data)
+    return converted_word_data
 

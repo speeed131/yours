@@ -30,7 +30,7 @@ def get_word_detail(
     return schemas_word.Word
 
 
-@router.get("/words/create", response_model=schemas_word.Word)
+@router.post("/words/create", response_model=schemas_word.Word)
 def create_word(
     word_data: schemas_word.Word,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user)

@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 import api.schemas.word as schemas_word
 import api.schemas.auth as schemas_auth
 import api.cruds.auth as cruds_auth
+import api.cruds.word as cruds_word
 
 
 router = APIRouter()
@@ -14,7 +15,8 @@ def get_words(
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user)
 ):
     # [バックエンド] 単語一覧表示のAPI
-    return List[schemas_word.Word]
+    return cruds_word.get_words_list_by_user(current_user)
+    # return List[schemas_word.Word]
 
 
 @router.get("/words/{word_id}", response_model=List[schemas_word.Word])

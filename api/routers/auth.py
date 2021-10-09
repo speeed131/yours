@@ -38,7 +38,9 @@ async def register(
 
 @router.post("/token", response_model=auth_schemas.Token)
 async def login_for_access_token(
-        form_data: auth_schemas.UserCreate,
+        # form_data: auth_schemas.UserCreate,
+        #@TODO:リクエストフォームが不必要になり次第、上記に変える。
+        form_data: OAuth2PasswordRequestForm = Depends(),
         db: AsyncSession = Depends(get_db)
 ):
     # DBから取得

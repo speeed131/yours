@@ -1,4 +1,6 @@
 from typing import Optional
+from datetime import datetime
+
 
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
@@ -8,8 +10,8 @@ class User(BaseModel):
     id: int
     username: str
     email: Optional[str]
-    disabled: Optional[bool] = None
-
+    created_at: datetime
+    updated_at: datetime
 
 class UserInDB(User):
     hashed_password: str

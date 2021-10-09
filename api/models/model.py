@@ -36,7 +36,7 @@ class Word(Base):
     meaning_english = Column(Text)
     memo = Column(Text)
     is_rememberd = Column(Boolean, default=False)
-    rememberd_at = Column(Date)
+    rememberd_at = Column(String(255))
     created_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp'))
     updated_at = Column(Timestamp, nullable=False,
@@ -69,7 +69,7 @@ class Daily(Base):
     meaning_japanese = Column(Text)
     meaning_english = Column(Text)
     is_open = Column(Boolean, default=False)
-    opened_at = Column(Date)
+    opened_at = Column(String(255))
     created_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp'))
     updated_at = Column(Timestamp, nullable=False,

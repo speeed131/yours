@@ -81,12 +81,6 @@ async def get_current_user(db: AsyncSession = Depends(get_db), token: str = Depe
     return user
 
 
-async def get_current_active_user(current_user: auth_schemas.User = Depends(get_current_user)):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
-    return current_user
-
-
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
@@ -101,8 +95,8 @@ async def create_user(
     register_data: auth_schemas.UserCreate
 ) -> model.User:
     user = model.User(
-        username = register_data.username,
-        hashed_password = get_password_hash(register_data.password),
+        username=register_data.username,
+        hashed_password=get_password_hash(register_data.password),
     )
     db.add(user)
     await db.commit()

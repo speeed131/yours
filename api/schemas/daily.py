@@ -13,6 +13,6 @@ class Daily(BaseModel):
     meaning_japanese: str = Field(example="遊ぶは英語でなんというのか")
     meaning_english: str = Field(example="play")
     is_open: bool = Field(example=False)
-    opened_at: Optional[datetime]
+    opened_at: Optional[str] = Field(example="20210908")
     created_at: datetime
     updated_at: datetime

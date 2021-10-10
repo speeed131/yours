@@ -47,6 +47,14 @@ async def get_word_by_word_id(
     word = result.all()
     return make_response_data_to_one_dict(word, "Word")
 
+async def delete_word_by_word_id(
+    word: schemas_word.Word,
+    current_user: schemas_auth.User,
+    db: AsyncSession
+) -> int:
+    await db.delete(word)
+    await db.commit()
+    return word.id
 
 def make_response_data_to_list(data: List, model_name: str) -> List:
     response_data = []

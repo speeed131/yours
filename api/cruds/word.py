@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 import api.schemas.auth as schemas_auth
 import api.schemas.word as schemas_word
 import api.models.model as model
+import api.utils.make_data as make_data
 
 from sqlalchemy import select
 from sqlalchemy.engine import Result
@@ -21,7 +22,7 @@ async def get_words_list_by_user(
     )
     words = result.all()
     #@TODO: ここの型変換なしで値を返すようにする。
-    return make_response_data_to_list(words, "Word")
+    return make_data.make_response_data_to_list(words, "Word")
 
 
 async def create_word(
@@ -45,7 +46,7 @@ async def get_word_by_word_id(
         select(model.Word).filter(model.Word.id == word_id)
     )
     word = result.all()
-    return make_response_data_to_one_dict(word, "Word")
+    return make_data.make_response_data_to_one_dict(word, "Word")
 
 async def delete_word_by_word_id(
     word: schemas_word.Word,
@@ -56,15 +57,15 @@ async def delete_word_by_word_id(
     await db.commit()
     return word.id
 
-def make_response_data_to_list(data: List, model_name: str) -> List:
-    response_data = []
-    for i in data:
-        response_data.append(i[model_name])
+# def make_response_data_to_list(data: List, model_name: str) -> List:
+#     response_data = []
+#     for i in data:
+#         response_data.append(i[model_name])
 
-    return response_data
+#     return response_data
 
-def make_response_data_to_one_dict(data: List, model_name: str) -> dict:
-    # print(data[0][model_name])
-    response_data = data[0][model_name]
+# def make_response_data_to_one_dict(data: List, model_name: str) -> dict:
+#     # print(data[0][model_name])
+#     response_data = data[0][model_name]
 
-    return response_data
+#     return response_data

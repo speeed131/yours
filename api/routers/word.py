@@ -43,7 +43,7 @@ async def create_word(
     return await cruds_word.create_word(word_data, current_user, db)
 
 
-@router.get("/words/{word_id}/delete", response_model=int)
+@router.delete("/words/{word_id}/delete", response_model=int)
 async def delete_word(
     word_id: int,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),

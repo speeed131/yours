@@ -20,5 +20,6 @@ class Word(BaseModel):
 
 
 # orm_modeをtrueにすることで、レスポンスが読み取れるようになっている？詳しくは以下を参照 https://fastapi.tiangolo.com/tutorial/sql-databases/?h=orm_mode#use-pydantics-orm_mode
+
     class Config:
         orm_mode = True

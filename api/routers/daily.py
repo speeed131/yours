@@ -22,7 +22,7 @@ async def get_dailies(
     return await cruds_daily.get_dailies_list_by_user(current_user, db)
 
 
-@router.get("/dailies/{daily_id}", response_model=List[schemas_daily.Daily])
+@router.get("/dailies/{daily_id}", response_model=schemas_daily.Daily)
 async def get_daily_detail(
     daily_id: int,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
@@ -32,7 +32,7 @@ async def get_daily_detail(
     return await cruds_daily.get_daily_by_daily_id(daily_id, current_user, db)
 
 
-@router.get("/dailies/create", response_model=schemas_daily.Daily)
+@router.post("/dailies/create", response_model=schemas_daily.Daily)
 async def create_daily(
     daily_data: schemas_daily.Daily,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
@@ -43,8 +43,9 @@ async def create_daily(
     return await cruds_daily.create_daily(daily_data, current_user, db)
 
 
-@router.get("/dailies/{daily_id}/delete", response_model=schemas_daily.Daily)
+@router.delete("/dailies/{daily_id}/delete", response_model=int)
 async def delete_daily(
+    daily_id: int,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
     db: AsyncSession = Depends(get_db)
 

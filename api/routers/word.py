@@ -13,25 +13,24 @@ import api.cruds.word as cruds_word
 router = APIRouter()
 
 
-@router.get("/words", response_model=Any)
+@router.get("/words", response_model=List[schemas_word.Word])
 async def get_words(
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     # [バックエンド] 単語一覧表示のAPI
     return await cruds_word.get_words_list_by_user(current_user, db)
-    # return List[schemas_word.Word]
 
 
-@router.get("/words/{word_id}", response_model=List[schemas_word.Word])
-def get_word_detail(
+@router.get("/words/{word_id}", response_model=schemas_word.Word)
+async def get_word(
     word_id: int,
-    current_user: schemas_auth.User = Depends(cruds_auth.get_current_user)
+    current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
+    db: AsyncSession = Depends(get_db)
 ):
     # [バックエンド] 単語詳細表示のAPI
-    # １,画像をapiを使って取得する
-    # ２，取得した画像を返す処理
-    return schemas_word.Word
+    print(cruds_word.get_word_by_word_id(word_id, current_user, db))
+    return await cruds_word.get_word_by_word_id(word_id, current_user, db)
 
 
 @router.post("/words/create", response_model=schemas_word.Word)
@@ -46,7 +45,9 @@ async def create_word(
 
 @router.get("/words/{word_id}/delete", response_model=schemas_word.Word)
 def delete_word(
-    current_user: schemas_auth.User = Depends(cruds_auth.get_current_user)
+    word_id: int,
+    current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
+    db: AsyncSession = Depends(get_db)
 ):
     # [バックエンド] 単語の削除
 

@@ -57,4 +57,3 @@ async def delete_word_by_word_id(
     await db.delete(word)
     await db.commit()
     return word.id
-

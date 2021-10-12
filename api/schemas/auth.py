@@ -13,6 +13,7 @@ class User(BaseModel):
     created_at: datetime
     updated_at: datetime
 
+
 class UserInDB(User):
     hashed_password: str
 

@@ -2,6 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      //https://nametake.github.io/posts/2019/10/07/typescript-absolute-imports/
+      //viteのため、build時の設定できていないから、エラー出たら対処する
       "@/*": ["src/*"]
     },
     "target": "esnext",

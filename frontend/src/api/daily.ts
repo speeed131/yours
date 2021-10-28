@@ -61,7 +61,7 @@ export const daily = {
         try {
             const token: string | null = utils.getLocalToken();
             const res = await axios.get(
-                `http://0.0.0.0:8000/dailies/${daily_id}/delete`,
+                `http://0.0.0.0:8000/dailies/${daily_id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

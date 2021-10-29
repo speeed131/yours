@@ -1,14 +1,33 @@
 module.exports = {
-    extends: [
-      "eslint:recommended",
-      "plugin:vue/vue3-recommended",  // "plugin:vue/vue3-strongly-recommended"もあります
-      "@vue/typescript",
-      "plugin:prettier/recommended",
-      "prettier/vue",
-      "prettier/@typescript-eslint",
-    ],
-    env: {
+  root: true,
+  env: {
       node: true,
-    },
-    rules: {},
-};
+  },
+  extends: [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "@vue/typescript/recommended",
+      "eslint-config-prettier",
+      "eslint-config-prettier/vue",
+      "eslint-config-prettier/@typescript-eslint",
+  
+  ],
+  parserOptions: {
+      ecmaVersion: 2020,
+  },
+  rules: {
+      "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+      "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+  },
+  overrides: [
+      {
+      files: [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)",
+      ],
+      env: {
+          jest: true,
+      },
+      },
+  ],
+  };

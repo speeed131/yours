@@ -5,11 +5,14 @@ import {
   IRegisterRequest,
   IRegisterResponse,
   IUser,
-} from "../interfaces/api";
+  IWord,
+} from "@/interfaces/api";
 import { utils } from "@/utils";
 
 export const auth = {
-  async postUserRegister(request_data: IRegisterRequest) {
+  async postUserRegister(
+    request_data: IRegisterRequest
+  ): Promise<IRegisterResponse | undefined> {
     try {
       const res = await axios.post<IRegisterResponse>(
         "http://0.0.0.0:8000/register",
@@ -22,7 +25,9 @@ export const auth = {
     }
   },
 
-  async postUserLogin(request_data: ILoginRequest) {
+  async postUserLogin(
+    request_data: ILoginRequest
+  ): Promise<ILoginResponse | undefined> {
     try {
       const res = await axios.post<ILoginResponse>(
         "http://0.0.0.0:8000/token",
@@ -35,7 +40,7 @@ export const auth = {
     }
   },
 
-  async getUserMe() {
+  async getUserMe(): Promise<IUser | undefined> {
     try {
       const token: string | null = utils.getLocalToken();
       const res = await axios.get<IUser>("http://0.0.0.0:8000/users/me", {

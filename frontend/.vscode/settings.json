@@ -33,4 +33,4 @@
       "**/package-lock.json": true,
       "**/snapshot/output/**": true
     },
-  }
+}

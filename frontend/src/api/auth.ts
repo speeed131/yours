@@ -5,7 +5,6 @@ import {
   IRegisterRequest,
   IRegisterResponse,
   IUser,
-  IWord,
 } from "@/interfaces/api";
 import { utils } from "@/utils";
 

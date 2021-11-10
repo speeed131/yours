@@ -1,8 +1,8 @@
 <template>
   <div>
-    <sidebar-component></sidebar-component>
+    <Sidebar />
     <div class="relative md:ml-64 bg-blueGray-100">
-      <navbar-component></navbar-component>
+      <Header></Header>
       <!-- Header -->
       <div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
         <div class="px-4 md:px-10 mx-auto w-full">
@@ -492,15 +492,15 @@
   </div>
 </template>
 <script>
-import NavbarComponent from "../components/Navbar.vue";
-import SidebarComponent from "../components/Sidebar.vue";
+import Header from "../components/layouts/Header.vue";
+import Sidebar from "../components/layouts/Sidebar.vue";
 import LineChartComponent from "../components/LineChart.vue";
 import BarChartComponent from "../components/BarChart.vue";
 export default {
   name: "dashboard-page",
   components: {
-    NavbarComponent,
-    SidebarComponent,
+    Header,
+    Sidebar,
     LineChartComponent,
     BarChartComponent,
   },

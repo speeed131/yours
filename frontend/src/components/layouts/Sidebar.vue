@@ -163,8 +163,8 @@
   </nav>
 </template>
 <script>
-import NotificationDropdownComponent from "./NotificationDropdown.vue";
-import UserDropdownComponent from "./UserDropdown.vue";
+import NotificationDropdownComponent from "@/components/NotificationDropdown.vue";
+import UserDropdownComponent from "@/components/UserDropdown.vue";
 export default {
   data() {
     return {

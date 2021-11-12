@@ -5,6 +5,7 @@ import Home from "@/pages/Home.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import WordList from "@/pages/word/WordList.vue";
 import WordListToRemember from "@/pages/word/WordListToRemember.vue";
+import DailyList from "@/pages/daily/DailyList.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,14 +30,20 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "words",
-        redirect: "/words",
+        name: "Words",
         component: WordList,
         children: [
           {
             path: "/toRemember",
+            name: "WordsToRemember",
             component: WordListToRemember,
           },
         ],
+      },
+      {
+        path: "dailies",
+        name: "Dailies",
+        component: DailyList,
       },
     ],
   },

@@ -14,10 +14,32 @@
       px-6
     "
   >
-    <div class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+    <div
+      class="
+        md:flex-col md:items-stretch md:min-h-full md:flex-nowrap
+        px-0
+        flex flex-wrap
+        items-center
+        justify-between
+        w-full
+        mx-auto
+      "
+    >
       <!-- Toggler -->
       <button
-        class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+        class="
+          cursor-pointer
+          text-black
+          opacity-50
+          md:hidden
+          px-3
+          py-1
+          text-xl
+          leading-none
+          bg-transparent
+          rounded
+          border border-solid border-transparent
+        "
         type="button"
         v-on:click="toggleCollapseShow('bg-white m-2 py-3 px-6')"
       >
@@ -25,7 +47,20 @@
       </button>
       <!-- Brand -->
       <a
-        class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+        class="
+          md:block
+          text-left
+          md:pb-2
+          text-blueGray-600
+          mr-0
+          inline-block
+          whitespace-nowrap
+          text-sm
+          uppercase
+          font-bold
+          p-4
+          px-0
+        "
         href="javascript:void(0)"
       >
         yours
@@ -62,7 +97,20 @@
           <div class="flex flex-wrap">
             <div class="w-6/12">
               <a
-                class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                class="
+                  md:block
+                  text-left
+                  md:pb-2
+                  text-blueGray-600
+                  mr-0
+                  inline-block
+                  whitespace-nowrap
+                  text-sm
+                  uppercase
+                  font-bold
+                  p-4
+                  px-0
+                "
                 href="javascript:void(0)"
               >
                 yours
@@ -119,28 +167,8 @@
           </div>
         </form>
         <!-- Navigation -->
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <a class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block" href="#/dashboard"
-              ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i> ホーム</a
-            >
-          </li>
-          <li class="items-center">
-            <a class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block" href="#/landing"
-              ><i class="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>登録した単語一覧</a
-            >
-          </li>
-          <li class="items-center">
-            <a class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block" href="#/profile"
-              ><i class="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>未習得の単語一覧</a
-            >
-          </li>
-          <li class="items-center">
-            <a class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block" href="#/login"
-              ><i class="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>作成した日記一覧</a
-            >
-          </li>
-        </ul>
+        <!-- SideBarNavGroup -->
+        <SideBarNavGroup :side-bar-menu="sideBarMenu" />
         <!-- Divider -->
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->
@@ -165,10 +193,34 @@
 <script>
 import NotificationDropdownComponent from "@/components/NotificationDropdown.vue";
 import UserDropdownComponent from "@/components/UserDropdown.vue";
+import SideBarNavGroup from "@/components/layouts/SideBarNavGroup.vue";
 export default {
   data() {
     return {
       collapseShow: "hidden",
+      //@TODO: SideBarNavMenuのコンポーネント分割、以下のオブジェクト使用
+      sideBarMenu: [
+        {
+          title: "ホーム",
+          routeName: "Home",
+          class: "fas fa-tv",
+        },
+        {
+          title: "登録した単語一覧",
+          routeName: "Words",
+          class: "fas fa-newspaper",
+        },
+        {
+          title: "未習得の単語一覧",
+          routeName: "WordsToRemember",
+          class: "fas fa-user-circle",
+        },
+        {
+          title: "作成した日記一覧",
+          routeName: "Dailies",
+          class: "fas fa-fingerprint",
+        },
+      ],
     };
   },
   methods: {
@@ -179,6 +231,7 @@ export default {
   components: {
     NotificationDropdownComponent,
     UserDropdownComponent,
+    SideBarNavGroup,
   },
 };
 </script>

@@ -4648,6 +4648,15 @@ eslint-plugin-prettier@^3.3.1:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
+eslint-plugin-tailwindcss@^1.17.1:
+  version "1.17.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-tailwindcss/-/eslint-plugin-tailwindcss-1.17.1.tgz#6a28d2dd9caef547bb6c91c84e69cb0741eeb9ad"
+  integrity sha512-WcGxGZUpUoWsopkvDsgc7OZZJm+wbklen2iT8zE+kuhsNMw5aCmbvvrw+ylwmPugityZCby2DTyMYmzwgtrj+Q==
+  dependencies:
+    fast-glob "^3.2.5"
+    postcss "^8.3.0"
+    tailwindcss "^2.1.2"
+
 eslint-plugin-vue@^7.0.0:
   version "7.20.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.20.0.tgz#98c21885a6bfdf0713c3a92957a5afeaaeed9253"
@@ -5066,7 +5075,7 @@ fast-glob@^2.2.6:
     merge2 "^1.2.3"
     micromatch "^3.1.10"
 
-fast-glob@^3.1.1, fast-glob@^3.2.7:
+fast-glob@^3.1.1, fast-glob@^3.2.5, fast-glob@^3.2.7:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.7.tgz#fd6cb7a2d7e9aa7a7846111e85a196d6b2f766a1"
   integrity sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==
@@ -8761,6 +8770,14 @@ postcss-js@^2:
     camelcase-css "^2.0.1"
     postcss "^7.0.18"
 
+postcss-js@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/postcss-js/-/postcss-js-3.0.3.tgz#2f0bd370a2e8599d45439f6970403b5873abda33"
+  integrity sha512-gWnoWQXKFw65Hk/mi2+WTQTHdPD5UJdDXZmX073EY/B3BWnYjO4F4t0VneTCnCGQ5E5GsCdMkzPaTXwl3r5dJw==
+  dependencies:
+    camelcase-css "^2.0.1"
+    postcss "^8.1.6"
+
 postcss-load-config@^2.0.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/postcss-load-config/-/postcss-load-config-2.1.2.tgz#c5ea504f2c4aef33c7359a34de3573772ad7502a"
@@ -8882,6 +8899,13 @@ postcss-modules-values@^3.0.0:
   dependencies:
     icss-utils "^4.0.0"
     postcss "^7.0.6"
+
+postcss-nested@5.0.6:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/postcss-nested/-/postcss-nested-5.0.6.tgz#466343f7fc8d3d46af3e7dba3fcd47d052a945bc"
+  integrity sha512-rKqm2Fk0KbA8Vt3AdGN0FB9OBOMDVajMG6ZCf/GoHgdxUJ4sBFp0A/uMIRm+MJUdo33YXEtjqIz8u7DAp8B7DA==
+  dependencies:
+    postcss-selector-parser "^6.0.6"
 
 postcss-nested@^4:
   version "4.2.3"
@@ -9063,7 +9087,7 @@ postcss@^7, postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.18, po
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
-postcss@^8.1.10, postcss@^8.2.1:
+postcss@^8.1.10, postcss@^8.1.6, postcss@^8.2.1, postcss@^8.3.0:
   version "8.3.11"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.11.tgz#c3beca7ea811cd5e1c4a3ec6d2e7599ef1f8f858"
   integrity sha512-hCmlUAIlUiav8Xdqw3Io4LcpA1DOt7h3LSTAC4G6JGHFFaWzI6qvFt9oilvl8BmkbBRX1IhM90ZAmpk68zccQA==
@@ -10592,6 +10616,44 @@ table@^5.2.3:
     lodash "^4.17.14"
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
+
+tailwindcss@^2.1.2:
+  version "2.2.19"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-2.2.19.tgz#540e464832cd462bb9649c1484b0a38315c2653c"
+  integrity sha512-6Ui7JSVtXadtTUo2NtkBBacobzWiQYVjYW0ZnKaP9S1ZCKQ0w7KVNz+YSDI/j7O7KCMHbOkz94ZMQhbT9pOqjw==
+  dependencies:
+    arg "^5.0.1"
+    bytes "^3.0.0"
+    chalk "^4.1.2"
+    chokidar "^3.5.2"
+    color "^4.0.1"
+    cosmiconfig "^7.0.1"
+    detective "^5.2.0"
+    didyoumean "^1.2.2"
+    dlv "^1.1.3"
+    fast-glob "^3.2.7"
+    fs-extra "^10.0.0"
+    glob-parent "^6.0.1"
+    html-tags "^3.1.0"
+    is-color-stop "^1.1.0"
+    is-glob "^4.0.1"
+    lodash "^4.17.21"
+    lodash.topath "^4.5.2"
+    modern-normalize "^1.1.0"
+    node-emoji "^1.11.0"
+    normalize-path "^3.0.0"
+    object-hash "^2.2.0"
+    postcss-js "^3.0.3"
+    postcss-load-config "^3.1.0"
+    postcss-nested "5.0.6"
+    postcss-selector-parser "^6.0.6"
+    postcss-value-parser "^4.1.0"
+    pretty-hrtime "^1.0.3"
+    purgecss "^4.0.3"
+    quick-lru "^5.1.1"
+    reduce-css-calc "^2.1.8"
+    resolve "^1.20.0"
+    tmp "^0.2.1"
 
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"

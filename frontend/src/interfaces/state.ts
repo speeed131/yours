@@ -1,6 +1,12 @@
-import { IWord, IUser } from "./api";
+import { IWord, IUser, IDaily } from "./api";
 
-export type State = WordState
+// export type any = { WordState | UserState | DailyState}
+
+// export interface any {
+//   <WordState>
+//   <UserState>
+//   <DailyState>
+// }
 
 export interface WordState {
   words: IWord[]
@@ -9,4 +15,8 @@ export interface WordState {
 export interface UserState {
   users: IUser[]
   loginUser: IUser
+}
+
+export interface DailyState {
+  dailies: IDaily[]
 }

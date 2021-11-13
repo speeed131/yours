@@ -1,7 +1,7 @@
 import { api } from "@/api/index"
 import { ActionContext } from "vuex";
 import { IWord } from "@/interfaces/api"
-import { WordState} from "@/interfaces/state"
+import { WordState } from "@/interfaces/state"
 
 // initial state
 const state = (): WordState => ({
@@ -15,6 +15,7 @@ const getters = {
 
 // actions
 const actions = {
+  //@TODO:RootStateをAnyにしているため、適切な方に変更する
   async getWords ({ commit }: ActionContext<WordState, any>): Promise<void> {
     try {
       const response = await api.word.getWords();

@@ -16,6 +16,8 @@ const getters = {
 
 // actions
 const actions = {
+  //@TODO:RootStateをAnyにしているため、適切な方に変更する
+
   async getDailies ({ commit }: ActionContext<DailyState, any>): Promise<void> {
     try {
       const response = await api.daily.getDailies()

@@ -25,6 +25,8 @@ const getters = {
 
 // actions
 const actions = {
+  //@TODO:RootStateをAnyにしているため、適切な方に変更する
+
   async getUserMe ({ commit }: ActionContext<UserState, any>): Promise<void> {
     try {
       const response = await api.auth.getUserMe()

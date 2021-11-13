@@ -8,8 +8,8 @@ from api.routers import auth, word, daily
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
-    "localhost:3000"
+    "http://localhost:8080",
+    "localhost:8080"
 ]
 
 app.add_middleware(

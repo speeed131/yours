@@ -1,7 +1,7 @@
 import { api } from "@/api/index"
 import { ActionContext } from "vuex";
 import { IUser } from "@/interfaces/api"
-import { State, UserState } from "@/interfaces/state"
+import { UserState } from "@/interfaces/state"
 
 
 // initial state
@@ -25,7 +25,7 @@ const getters = {
 
 // actions
 const actions = {
-  async getUserMe ({ commit }: ActionContext<UserState, State>): Promise<void> {
+  async getUserMe ({ commit }: ActionContext<UserState, any>): Promise<void> {
     try {
       const response = await api.auth.getUserMe()
       commit('setLoginUser', response)

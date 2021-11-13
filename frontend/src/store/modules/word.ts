@@ -1,7 +1,7 @@
 import { api } from "@/api/index"
 import { ActionContext } from "vuex";
 import { IWord } from "@/interfaces/api"
-import { WordState, State } from "@/interfaces/state"
+import { WordState} from "@/interfaces/state"
 
 // initial state
 const state = (): WordState => ({
@@ -15,7 +15,7 @@ const getters = {
 
 // actions
 const actions = {
-  async getWords ({ commit }: ActionContext<WordState, State>): Promise<void> {
+  async getWords ({ commit }: ActionContext<WordState, any>): Promise<void> {
     try {
       const response = await api.word.getWords();
       commit('setWords', response)

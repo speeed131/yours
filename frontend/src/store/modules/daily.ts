@@ -28,6 +28,7 @@ const actions = {
       // commit('setCheckoutStatus', 'failed')
     }
   },
+
 }
 
 // mutations

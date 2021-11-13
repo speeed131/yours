@@ -1,6 +1,6 @@
 import { api } from "@/api/index"
 import { ActionContext } from "vuex";
-import { IUser } from "@/interfaces/api"
+import { IUser, IRegisterRequest, ILoginRequest, } from "@/interfaces/api"
 import { UserState } from "@/interfaces/state"
 
 
@@ -26,7 +26,6 @@ const getters = {
 // actions
 const actions = {
   //@TODO:RootStateをAnyにしているため、適切な方に変更する
-
   async getUserMe ({ commit }: ActionContext<UserState, any>): Promise<void> {
     try {
       const response = await api.auth.getUserMe()
@@ -37,6 +36,32 @@ const actions = {
       // commit('setCheckoutStatus', 'failed')
     }
   },
+
+  async postUserRegister (
+    { commit }: ActionContext<UserState, any>,
+    register_data: IRegisterRequest
+  ): Promise<void>
+    {
+      try {
+        const response = await api.auth.postUserRegister(register_data)
+        commit("setLoginUser", response)
+      } catch (e) {
+        console.error(e)
+      }
+    },
+  
+  async postUserLogin (
+    { commit }: ActionContext<UserState, any>,
+    data: ILoginRequest
+  ): Promise<void>
+    {
+      try {
+        const response = await api.auth.postUserLogin(data)
+        commit("setLoginUser", response)
+      } catch (e) {
+        console.error(e)
+      }
+    }
 }
 
 // mutations

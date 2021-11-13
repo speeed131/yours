@@ -29,6 +29,19 @@ const actions = {
       // commit('setCartItems', { items: savedCartItems })
     }
   },
+
+  //@MEMO: 今の所あまり必要なさそう
+  async postWord (
+    { commit }: ActionContext<WordState, any>,
+    data: IWord
+  ): Promise<void>
+    {
+      try {
+        const response = await api.word.postWord(data)
+      } catch (e) {
+        console.error(e)
+      }
+    }
 }
 
 // mutations

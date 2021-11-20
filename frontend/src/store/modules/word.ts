@@ -1,28 +1,28 @@
-import { api } from "@/api/index"
+import { api } from "@/api/index";
 import { ActionContext } from "vuex";
-import { IWord } from "@/interfaces/api"
-import { WordState } from "@/interfaces/state"
+import { IWord } from "@/interfaces/api";
+import { WordState } from "@/interfaces/state";
 
 // initial state
 const state = (): WordState => ({
-  words: []
-})
+  words: [],
+});
 
 // getters
 const getters = {
   words: (state: WordState): IWord[] => state.words,
-}
+};
 
 // actions
 const actions = {
   //@TODO:RootStateをAnyにしているため、適切な方に変更する
-  async getWords ({ commit }: ActionContext<WordState, any>): Promise<void> {
+  async getWords({ commit }: ActionContext<WordState, any>): Promise<void> {
     try {
       const response = await api.word.getWords();
-      commit('setWords', response)
+      commit("setWords", response);
       // commit('setCheckoutStatus', 'successful')
     } catch (e) {
-      console.error(e)
+      console.error(e);
       //@TODO: APIエラーダイアログ表示
       // commit('setCheckoutStatus', 'failed')
       // rollback to the cart saved before sending the request
@@ -31,25 +31,24 @@ const actions = {
   },
 
   //@MEMO: 今の所あまり必要なさそう
-  async postWord (
+  async postWord(
     { commit }: ActionContext<WordState, any>,
     data: IWord
-  ): Promise<void>
-    {
-      try {
-        const response = await api.word.postWord(data)
-      } catch (e) {
-        console.error(e)
-      }
+  ): Promise<void> {
+    try {
+      const response = await api.word.postWord(data);
+    } catch (e) {
+      console.error(e);
     }
-}
+  },
+};
 
 // mutations
 const mutations = {
-  setWords (state: WordState, words: IWord[]): void {
-    state.words = words
-  }
-}
+  setWords(state: WordState, words: IWord[]): void {
+    state.words = words;
+  },
+};
 
 export default {
   namespaced: true,
@@ -57,4 +56,4 @@ export default {
   getters,
   actions,
   mutations,
-}
+};

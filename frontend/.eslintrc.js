@@ -10,7 +10,7 @@ module.exports = {
     "@vue/typescript/recommended",
     "@vue/prettier", //@MEMO: テンプレート内で、クラス多いと改行してくる
     "@vue/prettier/@typescript-eslint",
-    "prettier"
+    "prettier",
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -21,7 +21,7 @@ module.exports = {
     // @see https://eslint.vuejs.org/rules/singleline-html-element-content-newline.html
     "vue/singleline-html-element-content-newline": "off",
     // @see https://eslint.vuejs.org/rules/multiline-html-element-content-newline.html#vue-multiline-html-element-content-newline
-    "vue/multiline-html-element-content-newline": "off"
+    "vue/multiline-html-element-content-newline": "off",
   },
   overrides: [
     {

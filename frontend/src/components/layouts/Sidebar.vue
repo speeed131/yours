@@ -1,7 +1,15 @@
 <template>
   <nav
     class="
-      md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden
+      md:left-0
+      md:block
+      md:fixed
+      md:top-0
+      md:bottom-0
+      md:overflow-y-auto
+      md:flex-row
+      md:flex-nowrap
+      md:overflow-hidden
       shadow-xl
       bg-white
       flex flex-wrap
@@ -77,7 +85,13 @@
       <!-- Collapse -->
       <div
         class="
-          md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none
+          md:flex
+          md:flex-col
+          md:items-stretch
+          md:opacity-100
+          md:relative
+          md:mt-4
+          md:shadow-none
           shadow
           absolute
           top-0
@@ -93,7 +107,15 @@
         v-bind:class="collapseShow"
       >
         <!-- Collapse header -->
-        <div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
+        <div
+          class="
+            md:min-w-full md:hidden
+            block
+            pb-4
+            mb-4
+            border-b border-solid border-blueGray-200
+          "
+        >
           <div class="flex flex-wrap">
             <div class="w-6/12">
               <a

@@ -6,11 +6,10 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import WordList from "@/pages/word/WordList.vue";
 import WordListToRemember from "@/pages/word/WordListToRemember.vue";
 import DailyList from "@/pages/daily/DailyList.vue";
-import Login from "@/pages/beforelogin/login.vue"
-import Register from "@/pages/beforelogin/register.vue"
-import Landing from "@/pages/beforelogin/landing.vue"
-import { api } from "@/api/index"
-
+import Login from "@/pages/beforelogin/login.vue";
+import Register from "@/pages/beforelogin/register.vue";
+import Landing from "@/pages/beforelogin/landing.vue";
+import { api } from "@/api/index";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: "/login",
     beforeEnter: (to, from) => {
       // reject the navigation
-      console.log(api.auth.getUserMe())
+      console.log(api.auth.getUserMe());
       if (!api.auth.getUserMe()) return "/login";
     },
     component: DefaultLayout,
@@ -51,7 +50,8 @@ const routes: Array<RouteRecordRaw> = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ "@/pages/About.vue"),
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/pages/About.vue"),
       },
       {
         path: "words",

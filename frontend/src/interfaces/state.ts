@@ -9,14 +9,14 @@ import { IWord, IUser, IDaily } from "./api";
 // }
 
 export interface WordState {
-  words: IWord[]
+  words: IWord[];
 }
 
 export interface UserState {
-  users: IUser[]
-  loginUser: IUser
+  users: IUser[];
+  loginUser: IUser;
 }
 
 export interface DailyState {
-  dailies: IDaily[]
+  dailies: IDaily[];
 }

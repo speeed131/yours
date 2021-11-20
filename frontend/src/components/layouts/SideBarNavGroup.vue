@@ -8,9 +8,18 @@
     </li> -->
     <li class="items-center" v-for="(item, i) in sideBarMenu" :key="i">
       <a
-        class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+        class="
+          text-blueGray-700
+          hover:text-blueGray-500
+          text-xs
+          uppercase
+          py-3
+          font-bold
+          block
+        "
         @click="toMovePage(item.routeName)"
-        ><i class="text-blueGray-400 mr-2 text-sm" :class="item.class"></i> {{ item.title }}
+        ><i class="text-blueGray-400 mr-2 text-sm" :class="item.class"></i>
+        {{ item.title }}
       </a>
     </li>
   </ul>

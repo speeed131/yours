@@ -8,7 +8,7 @@ module.exports = {
     "plugin:vue/vue3-essential",
     "eslint:recommended",
     "@vue/typescript/recommended",
-    // "@vue/prettier", //@MEMO: テンプレート内で、クラス多いと改行してくるためコメントアウト
+    "@vue/prettier", //@MEMO: テンプレート内で、クラス多いと改行してくる
     "@vue/prettier/@typescript-eslint",
     "prettier"
   ],

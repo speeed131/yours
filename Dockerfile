@@ -1,6 +1,7 @@
 # python3.9のイメージをダウンロード
 FROM python:3.9-buster
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1 
+# PYTHONUNBUFFERED はこれが理由  https://hodalog.com/run-django-app-using-docker-compose/
 
 WORKDIR /src
 

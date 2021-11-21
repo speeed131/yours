@@ -13,6 +13,7 @@ export const auth = {
     request_data: IRegisterRequest
   ): Promise<IRegisterResponse | undefined> {
     try {
+      console.log(request_data);
       const res = await axios.post<IRegisterResponse>(
         "http://0.0.0.0:8000/register",
         request_data

@@ -18,7 +18,7 @@
         <ul v-if="user" class="flex items-center hidden space-x-8 lg:flex">
           <li>
             <a
-              href="/"
+              href="/register"
               aria-label="Sign up"
               title="Sign up"
               class="
@@ -35,7 +35,7 @@
           </li>
           <li>
             <a
-              href="/"
+              href="/login"
               aria-label="Sign in"
               title="Sign in"
               class="

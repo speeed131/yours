@@ -3,7 +3,7 @@
   <div class="relative bg-white dark:bg-gray-800">
     <div class="flex justify-between">
       <div v-if="false" class="flex-grow">
-        <Sideba />
+        <Sidebar />
       </div>
       <div class="flex-grow">
         <router-view />

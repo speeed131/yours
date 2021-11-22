@@ -18,7 +18,6 @@ const routes: Array<RouteRecordRaw> = [
     redirect: "/login",
     beforeEnter: (to, from) => {
       // reject the navigation
-      console.log(api.auth.getUserMe());
       if (!api.auth.getUserMe()) return "/login";
     },
     component: DefaultLayout,

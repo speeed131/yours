@@ -198,15 +198,18 @@ export default defineComponent({
     };
   },
   methods: {
-    registerUser() {
+    async registerUser() {
       const requestData = {
         username: this.username,
         password: this.password,
       };
-      try {
-        this.postUserRegister(requestData);
-      } finally {
+
+      const isSuccess = await this.postUserRegister(requestData);
+      if (isSuccess) {
         this.$router.push({ name: "Home" });
+      } else {
+        //@TODO:ダイアログ表示
+        console.log("登録に失敗しました");
       }
     },
   },

@@ -51,6 +51,7 @@
               <i class="pi pi-user"></i>
             </span>
             <input
+              v-model="username"
               type="text"
               id="sign-in-email"
               class="
@@ -104,6 +105,7 @@
               </svg>
             </span>
             <input
+              v-model="password"
               type="password"
               id="sign-in-email"
               class="
@@ -175,8 +177,40 @@
 
 <script>
 import "primeicons/primeicons.css";
+import { defineComponent, ref, reactive, toRefs } from "vue";
+import { useStore } from "vuex";
 
-export default {};
+export default defineComponent({
+  /**
+   @see https://v3.ja.vuejs.org/guide/composition-api-setup.html#%E5%BC%95%E6%95%B0
+  */
+  name: "register",
+  setup(props, context) {
+    const store = useStore();
+    const username = ref("");
+    const password = ref("");
+
+    return {
+      username,
+      password,
+      postUserLogin: (requestData) =>
+        store.dispatch("auth/postUserLogin", requestData),
+    };
+  },
+  methods: {
+    registerUser() {
+      const requestData = {
+        username: this.username,
+        password: this.password,
+      };
+      try {
+        this.postUserLogin(requestData);
+      } finally {
+        this.$router.push({ name: "Home" });
+      }
+    },
+  },
+});
 </script>
 
 <style></style>

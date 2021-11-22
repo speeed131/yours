@@ -25,38 +25,44 @@ const getters = {
 // actions
 const actions = {
   //@TODO:RootStateをAnyにしているため、適切な方に変更する
-  async getUserMe({ commit }: ActionContext<UserState, any>): Promise<void> {
+  async getUserMe({ commit }: ActionContext<UserState, any>): Promise<boolean> {
     try {
       const response = await api.auth.getUserMe();
       commit("setLoginUser", response);
+      return response ? true : false;
     } catch (e) {
       console.error(e);
       //@TODO: APIエラーダイアログ表示
       // commit('setCheckoutStatus', 'failed')
+      return false;
     }
   },
 
   async postUserRegister(
     { commit }: ActionContext<UserState, any>,
     register_data: IRegisterRequest
-  ): Promise<void> {
+  ): Promise<boolean> {
     try {
       const response = await api.auth.postUserRegister(register_data);
       commit("setLoginUser", response);
+      return response ? true : false;
     } catch (e) {
       console.error(e);
+      return false;
     }
   },
 
   async postUserLogin(
     { commit }: ActionContext<UserState, any>,
     data: ILoginRequest
-  ): Promise<void> {
+  ): Promise<boolean> {
     try {
       const response = await api.auth.postUserLogin(data);
       commit("setLoginUser", response);
+      return response ? true : false;
     } catch (e) {
       console.error(e);
+      return false;
     }
   },
 };

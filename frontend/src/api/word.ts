@@ -24,7 +24,8 @@ export const word = {
   async getWords(): Promise<IWord[] | undefined> {
     try {
       const token: string | null = utils.getLocalToken();
-      const res = await axios.post<IWord[]>("http://0.0.0.0:8000/words", {
+      console.log(token);
+      const res = await axios.get<IWord[]>("http://0.0.0.0:8000/words", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -55,7 +56,7 @@ export const word = {
   async deleteWord(word_id: number): Promise<number | undefined> {
     try {
       const token: string | null = utils.getLocalToken();
-      const res = await axios.post<number>(
+      const res = await axios.delete<number>(
         `http://0.0.0.0:8000/words/${word_id}/delete`,
         {
           headers: {

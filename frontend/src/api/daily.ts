@@ -55,7 +55,7 @@ export const daily = {
   async deleteDaily(daily_id: number): Promise<number | undefined> {
     try {
       const token: string | null = utils.getLocalToken();
-      const res = await axios.get<number>(
+      const res = await axios.delete<number>(
         `http://0.0.0.0:8000/dailies/${daily_id}`,
         {
           headers: {

@@ -81,7 +81,7 @@ router.beforeEach(async (to, from) => {
   // eslint-disable-next-line no-constant-condition
   const isSuccess = await store.dispatch("auth/getUserMe");
 
-  if (to.name === "Login" || to.name === "Register" || to.name === "Landing") {
+  if (to.name === "Login" || to.name === "Register") {
     return isSuccess ? "/home" : true;
   }
 

@@ -9,6 +9,7 @@ import DailyList from "@/pages/daily/DailyList.vue";
 import Login from "@/pages/beforelogin/login.vue";
 import Register from "@/pages/beforelogin/register.vue";
 import Landing from "@/pages/beforelogin/landing.vue";
+import NewWordList from "@/pages/word/NewWordList.vue";
 import { api } from "@/api/index";
 import store from "@/store/index";
 
@@ -52,8 +53,13 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "words",
         name: "Words",
-        component: WordList,
+        component: NewWordList,
         children: [
+          // {
+          //   path: "/register"
+          //   name: "WordsRegister"
+          //   component: Word
+          // },
           {
             path: "/toRemember",
             name: "WordsToRemember",

@@ -31,7 +31,7 @@
       ログイン
     </div>
     <div class="mt-8">
-      <form action="#" autoComplete="off">
+      <form @submit.prevent="loginUser()">
         <div class="flex flex-col mb-2">
           <div class="flex relative">
             <span
@@ -184,7 +184,7 @@ export default defineComponent({
   /**
    @see https://v3.ja.vuejs.org/guide/composition-api-setup.html#%E5%BC%95%E6%95%B0
   */
-  name: "register",
+  name: "login",
   setup(props, context) {
     const store = useStore();
     const username = ref("");
@@ -198,15 +198,18 @@ export default defineComponent({
     };
   },
   methods: {
-    registerUser() {
+    async loginUser() {
       const requestData = {
         username: this.username,
         password: this.password,
       };
-      try {
-        this.postUserLogin(requestData);
-      } finally {
+
+      const isSuccess = await this.postUserLogin(requestData);
+      if (isSuccess) {
         this.$router.push({ name: "Home" });
+      } else {
+        //@TODO:ダイアログ表示
+        console.log("ログインに失敗しました");
       }
     },
   },

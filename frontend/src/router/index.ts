@@ -16,10 +16,10 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Layout",
     redirect: "/login",
-    beforeEnter: (to, from) => {
-      // reject the navigation
-      if (!api.auth.getUserMe()) return "/login";
-    },
+    // beforeEnter: (to, from) => {
+    //   // reject the navigation
+    //   if (!api.auth.getUserMe()) return "/login";
+    // },
     component: DefaultLayout,
     children: [
       //https://next.router.vuejs.org/guide/essentials/nested-routes.htm

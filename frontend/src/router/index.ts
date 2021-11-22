@@ -10,16 +10,13 @@ import Login from "@/pages/beforelogin/login.vue";
 import Register from "@/pages/beforelogin/register.vue";
 import Landing from "@/pages/beforelogin/landing.vue";
 import { api } from "@/api/index";
+import store from "@/store/index";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Layout",
     redirect: "/login",
-    // beforeEnter: (to, from) => {
-    //   // reject the navigation
-    //   if (!api.auth.getUserMe()) return "/login";
-    // },
     component: DefaultLayout,
     children: [
       //https://next.router.vuejs.org/guide/essentials/nested-routes.htm
@@ -76,6 +73,19 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to, from) => {
+  // reject the navigation
+  //@TODO:汚いコードなのでどうにかしたい
+  // eslint-disable-next-line no-constant-condition
+  const isSuccess = await store.dispatch("auth/getUserMe");
+
+  if (to.name === "Login" || to.name === "Register" || to.name === "Landing") {
+    return isSuccess ? "/home" : true;
+  }
+
+  return isSuccess ? true : "/login";
 });
 
 export default router;

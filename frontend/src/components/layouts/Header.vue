@@ -15,7 +15,10 @@
             >
           </a>
         </div>
-        <ul v-if="user" class="flex items-center hidden space-x-8 lg:flex">
+        <ul
+          v-if="!loginUser"
+          class="flex items-center hidden space-x-8 lg:flex"
+        >
           <li>
             <a
               href="/register"
@@ -55,12 +58,17 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
+import "primeicons/primeicons.css";
+import { defineComponent, ref, reactive, toRefs, computed } from "vue";
+import { useStore } from "vuex";
+
+export default defineComponent({
+  setup(props, context) {
+    const store = useStore();
+
     return {
-      isMenuOpen: false,
-      user: true,
+      loginUser: computed(() => store.getters["auth/loginUser"]),
     };
   },
-};
+});
 </script>

@@ -78,6 +78,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   // reject the navigation
   //@TODO:汚いコードなのでどうにかしたい
+  //@TODO: storeの参照も必要か検討余地あり
   // eslint-disable-next-line no-constant-condition
   const isSuccess = await store.dispatch("auth/getUserMe");
 

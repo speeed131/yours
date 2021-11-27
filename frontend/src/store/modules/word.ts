@@ -30,7 +30,7 @@ const actions = {
     }
   },
 
-  //@MEMO: 今の所あまり必要なさそう
+  //@MEMO: 今の所あまり必要なさそうCommit
   async postWord(
     { commit }: ActionContext<WordState, any>,
     data: IWord

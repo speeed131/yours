@@ -11,7 +11,7 @@ import "primevue/resources/themes/saga-orange/theme.css";
 
 import "primevue/resources/primevue.min.css"; // ベース
 import "primeicons/primeicons.css"; // アイコン
-// import "primeflex/primeflex.css"; // primeflex
+import "/node_modules/primeflex/primeflex.css"; // primeflex
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 

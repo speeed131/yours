@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="card">
+      {{ words }}
       <Toolbar class="p-mb-4">
         <template #start>
           <Button
@@ -33,16 +34,15 @@
 
       <DataTable
         ref="dt"
-        :value="products"
+        :value="words"
         v-model:selection="selectedProducts"
         dataKey="id"
         :paginator="true"
-        :rows="10"
+        :rows="5"
         :filters="filters"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 25]"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
-        responsiveLayout="scroll"
       >
         <template #header>
           <div
@@ -51,7 +51,7 @@
               p-d-flex p-flex-column p-flex-md-row p-jc-md-between
             "
           >
-            <h5 class="p-mb-2 p-m-md-0 p-as-md-center">Manage Products</h5>
+            <h5 class="p-mb-2 p-m-md-0 p-as-md-center">単語一覧</h5>
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
               <InputText
@@ -68,45 +68,35 @@
           :exportable="false"
         ></Column>
         <Column
-          field="code"
-          header="Code"
+          field="name"
+          header="単語名"
           :sortable="true"
           style="min-width: 12rem"
         ></Column>
         <Column
-          field="name"
-          header="Name"
+          field="meaning_japanese"
+          header="意味"
           :sortable="true"
           style="min-width: 16rem"
         ></Column>
-        <Column header="Image">
+        <!-- <Column header="Image">
           <template #body="slotProps">
             <img
               src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
               :alt="slotProps.data.image"
-              class="product-image"
+              class="word-image"
             />
           </template>
-        </Column>
+        </Column> -->
         <Column
-          field="price"
-          header="Price"
-          :sortable="true"
-          style="min-width: 8rem"
-        >
-          <template #body="slotProps">
-            {{ formatCurrency(slotProps.data.price) }}
-          </template>
-        </Column>
-        <Column
-          field="category"
-          header="Category"
+          field="memo"
+          header="メモ"
           :sortable="true"
           style="min-width: 10rem"
         ></Column>
         <Column
-          field="rating"
-          header="Reviews"
+          field="rememberd_at"
+          header="覚えたかどうか"
           :sortable="true"
           style="min-width: 12rem"
         >
@@ -118,7 +108,7 @@
             />
           </template>
         </Column>
-        <Column
+        <!-- <Column
           field="inventoryStatus"
           header="Status"
           :sortable="true"
@@ -127,7 +117,7 @@
           <template #body="slotProps">
             <span
               :class="
-                'product-badge status-' +
+                'word-badge status-' +
                 (slotProps.data.inventoryStatus
                   ? slotProps.data.inventoryStatus.toLowerCase()
                   : '')
@@ -135,7 +125,7 @@
               >{{ slotProps.data.inventoryStatus }}</span
             >
           </template>
-        </Column>
+        </Column> -->
         <Column :exportable="false" style="min-width: 8rem">
           <template #body="slotProps">
             <Button
@@ -162,52 +152,52 @@
     >
       <img
         src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
-        :alt="product.image"
-        class="product-image"
-        v-if="product.image"
+        :alt="word.image"
+        class="word-image"
+        v-if="word.image"
       />
       <div class="p-field">
-        <label for="name">Name</label>
+        <label for="name">単語名</label>
         <InputText
           id="name"
-          v-model.trim="product.name"
+          v-model.trim="word.name"
           required="true"
           autofocus
-          :class="{ 'p-invalid': submitted && !product.name }"
+          :class="{ 'p-invalid': submitted && !word.name }"
         />
-        <small class="p-error" v-if="submitted && !product.name"
+        <small class="p-error" v-if="submitted && !word.name"
           >Name is required.</small
         >
       </div>
       <div class="p-field">
-        <label for="description">Description</label>
-        <Textarea
-          id="description"
-          v-model="product.description"
-          required="true"
-          rows="3"
-          cols="20"
+        <label for="price">意味</label>
+        <InputText
+          id="price"
+          v-model="word.price"
+          mode="currency"
+          currency="USD"
+          locale="en-US"
         />
       </div>
-
+      <!-- 
       <div class="p-field">
-        <label for="inventoryStatus" class="p-mb-3">Inventory Status</label>
+        <label for="inventoryStatus" class="p-mb-3">重要度</label>
         <Dropdown
           id="inventoryStatus"
-          v-model="product.inventoryStatus"
+          v-model="word.inventoryStatus"
           :options="statuses"
           optionLabel="label"
           placeholder="Select a Status"
         >
           <template #value="slotProps">
             <div v-if="slotProps.value && slotProps.value.value">
-              <span :class="'product-badge status-' + slotProps.value.value">{{
+              <span :class="'word-badge status-' + slotProps.value.value">{{
                 slotProps.value.label
               }}</span>
             </div>
             <div v-else-if="slotProps.value && !slotProps.value.value">
               <span
-                :class="'product-badge status-' + slotProps.value.toLowerCase()"
+                :class="'word-badge status-' + slotProps.value.toLowerCase()"
                 >{{ slotProps.value }}</span
               >
             </div>
@@ -216,65 +206,27 @@
             </span>
           </template>
         </Dropdown>
+      </div> -->
+
+      <div class="p-field">
+        <label class="p-mb-3">品詞</label>
+        <MultiSelect
+          v-model="selectedCars"
+          :options="cars"
+          optionLabel="brand"
+          placeholder="Select Brands"
+        />
       </div>
 
       <div class="p-field">
-        <label class="p-mb-3">Category</label>
-        <div class="p-formgrid p-grid">
-          <div class="p-field-radiobutton p-col-6">
-            <RadioButton
-              id="category1"
-              name="category"
-              value="Accessories"
-              v-model="product.category"
-            />
-            <label for="category1">Accessories</label>
-          </div>
-          <div class="p-field-radiobutton p-col-6">
-            <RadioButton
-              id="category2"
-              name="category"
-              value="Clothing"
-              v-model="product.category"
-            />
-            <label for="category2">Clothing</label>
-          </div>
-          <div class="p-field-radiobutton p-col-6">
-            <RadioButton
-              id="category3"
-              name="category"
-              value="Electronics"
-              v-model="product.category"
-            />
-            <label for="category3">Electronics</label>
-          </div>
-          <div class="p-field-radiobutton p-col-6">
-            <RadioButton
-              id="category4"
-              name="category"
-              value="Fitness"
-              v-model="product.category"
-            />
-            <label for="category4">Fitness</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="p-formgrid p-grid">
-        <div class="p-field p-col">
-          <label for="price">Price</label>
-          <InputNumber
-            id="price"
-            v-model="product.price"
-            mode="currency"
-            currency="USD"
-            locale="en-US"
-          />
-        </div>
-        <div class="p-field p-col">
-          <label for="quantity">Quantity</label>
-          <InputNumber id="quantity" v-model="product.quantity" integeronly />
-        </div>
+        <label for="description">メモ</label>
+        <Textarea
+          id="description"
+          v-model="word.description"
+          required="true"
+          rows="3"
+          cols="20"
+        />
       </div>
       <template #footer>
         <Button
@@ -300,8 +252,8 @@
     >
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
-        <span v-if="product"
-          >Are you sure you want to delete <b>{{ product.name }}</b
+        <span v-if="word"
+          >Are you sure you want to delete <b>{{ word.name }}</b
           >?</span
         >
       </div>
@@ -329,7 +281,7 @@
     >
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
-        <span v-if="product"
+        <span v-if="word"
           >Are you sure you want to delete the selected products?</span
         >
       </div>
@@ -354,10 +306,10 @@
 <script lang="ts">
 import "primeicons/primeicons.css";
 // import "primeicons/prime.css";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed, defineComponent } from "vue";
 import { FilterMatchMode } from "primevue/api";
 import { useToast } from "primevue/usetoast";
-import ProductService from "@/hooks/ProductService";
+// import ProductService from "@/hooks/ProductService";
 import Button from "primevue/button";
 import FileUpload from "primevue/fileupload";
 import Toolbar from "primevue/toolbar";
@@ -366,12 +318,15 @@ import Column from "primevue/column";
 import Rating from "primevue/rating";
 import DataTable from "primevue/datatable";
 import Textarea from "primevue/textarea";
-import Dropdown from "primevue/dropdown";
-import RadioButton from "primevue/radiobutton";
-import InputNumber from "primevue/inputnumber";
+// import Dropdown from "primevue/dropdown";
+import MultiSelect from "primevue/multiselect";
+// import InputNumber from "primevue/inputnumber";
 import Dialog from "primevue/dialog";
+import { dispatchGetWords } from "@/hooks/hookGetWords";
+import { useStore } from "vuex";
+import { IWord } from "@/interfaces/api";
 
-export default {
+export default defineComponent({
   components: {
     Button,
     FileUpload,
@@ -381,10 +336,8 @@ export default {
     Rating,
     DataTable,
     Textarea,
-    Dropdown,
-    RadioButton,
+    MultiSelect,
     Dialog,
-    InputNumber,
   },
   setup() {
     onMounted(() => {
@@ -392,7 +345,48 @@ export default {
       // console.log(products);
     });
     const dt = ref();
+    const load = async () => {
+      await dispatchGetWords();
+    };
+    load();
+    const store = useStore();
     const products = ref([
+      {
+        id: "1000",
+        code: "f230fh0g3",
+        name: "Bamboo Watch",
+        description: "Product Description",
+        image: "bamboo-watch.jpg",
+        price: 65,
+        category: "Accessories",
+        quantity: 24,
+        inventoryStatus: "INSTOCK",
+        rating: 5,
+      },
+      {
+        id: "1000",
+        code: "f230fh0g3",
+        name: "Bamboo Watch",
+        description: "Product Description",
+        image: "bamboo-watch.jpg",
+        price: 65,
+        category: "Accessories",
+        quantity: 24,
+        inventoryStatus: "INSTOCK",
+        rating: 5,
+      },
+      {
+        id: "1000",
+        code: "f230fh0g3",
+        name: "Bamboo Watch",
+        description: "Product Description",
+        image: "bamboo-watch.jpg",
+        price: 65,
+        category: "Accessories",
+        quantity: 24,
+        inventoryStatus: "INSTOCK",
+        rating: 5,
+      },
       {
         id: "1000",
         code: "f230fh0g3",
@@ -469,29 +463,16 @@ export default {
     const productDialog = ref(false);
     const deleteProductDialog = ref(false);
     const deleteProductsDialog = ref(false);
-    const product = ref({});
-    const productService = ref(new ProductService());
+    const word = ref({});
+    // const productService = ref(new ProductService());
     const selectedProducts = ref();
     const filters = ref({
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
     const submitted = ref(false);
-    const statuses = ref([
-      { label: "INSTOCK", value: "instock" },
-      { label: "LOWSTOCK", value: "lowstock" },
-      { label: "OUTOFSTOCK", value: "outofstock" },
-    ]);
 
-    const formatCurrency = (value) => {
-      if (value)
-        return value.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
-      return;
-    };
     const openNew = () => {
-      product.value = {};
+      word.value = {};
       submitted.value = false;
       productDialog.value = true;
     };
@@ -502,60 +483,58 @@ export default {
     const saveProduct = () => {
       submitted.value = true;
 
-      if (product.value.name.trim()) {
-        if (product.value.id) {
-          product.value.inventoryStatus = product.value.inventoryStatus.value
-            ? product.value.inventoryStatus.value
-            : product.value.inventoryStatus;
-          products.value[findIndexById(product.value.id)] = product.value;
-          useToast.add({
-            severity: "success",
-            summary: "Successful",
-            detail: "Product Updated",
-            life: 3000,
-          });
+      if (word.value.name.trim()) {
+        if (word.value.id) {
+          word.value.inventoryStatus = word.value.inventoryStatus.value
+            ? word.value.inventoryStatus.value
+            : word.value.inventoryStatus;
+          products.value[findIndexById(word.value.id)] = word.value;
+          // useToast.add({
+          //   severity: "success",
+          //   summary: "Successful",
+          //   detail: "Product Updated",
+          //   life: 3000,
+          // });
         } else {
-          product.value.id = createId();
-          product.value.code = createId();
-          product.value.image = "product-placeholder.svg";
-          product.value.inventoryStatus = product.value.inventoryStatus
-            ? product.value.inventoryStatus.value
+          word.value.id = createId();
+          word.value.code = createId();
+          word.value.image = "word-placeholder.svg";
+          word.value.inventoryStatus = word.value.inventoryStatus
+            ? word.value.inventoryStatus.value
             : "INSTOCK";
-          products.value.push(product.value);
-          useToast.add({
-            severity: "success",
-            summary: "Successful",
-            detail: "Product Created",
-            life: 3000,
-          });
+          products.value.push(word.value);
+          // useToast.add({
+          //   severity: "success",
+          //   summary: "Successful",
+          //   detail: "Product Created",
+          //   life: 3000,
+          // });
         }
 
         productDialog.value = false;
-        product.value = {};
+        word.value = {};
       }
     };
-    const editProduct = (prod) => {
-      product.value = { ...prod };
+    const editProduct = (prod: any) => {
+      word.value = { ...prod };
       productDialog.value = true;
     };
-    const confirmDeleteProduct = (prod) => {
-      product.value = prod;
+    const confirmDeleteProduct = (prod: any) => {
+      word.value = prod;
       deleteProductDialog.value = true;
     };
     const deleteProduct = () => {
-      products.value = products.value.filter(
-        (val) => val.id !== product.value.id
-      );
+      products.value = products.value.filter((val) => val.id !== word.value.id);
       deleteProductDialog.value = false;
-      product.value = {};
-      useToast.add({
-        severity: "success",
-        summary: "Successful",
-        detail: "Product Deleted",
-        life: 3000,
-      });
+      word.value = {};
+      // useToast.add({
+      //   severity: "success",
+      //   summary: "Successful",
+      //   detail: "Product Deleted",
+      //   life: 3000,
+      // });
     };
-    const findIndexById = (id) => {
+    const findIndexById = (id: any) => {
       let index = -1;
       for (let i = 0; i < products.value.length; i++) {
         if (products.value[i].id === id) {
@@ -587,12 +566,12 @@ export default {
       );
       deleteProductsDialog.value = false;
       selectedProducts.value = null;
-      useToast.add({
-        severity: "success",
-        summary: "Successful",
-        detail: "Products Deleted",
-        life: 3000,
-      });
+      // useToast.add({
+      //   severity: "success",
+      //   summary: "Successful",
+      //   detail: "Products Deleted",
+      //   life: 3000,
+      // });
     };
 
     return {
@@ -601,12 +580,10 @@ export default {
       productDialog,
       deleteProductDialog,
       deleteProductsDialog,
-      product,
+      word,
       selectedProducts,
       filters,
       submitted,
-      statuses,
-      formatCurrency,
       openNew,
       hideDialog,
       saveProduct,
@@ -618,9 +595,10 @@ export default {
       exportCSV,
       confirmDeleteSelected,
       deleteSelectedProducts,
+      words: computed(() => store.getters["word/words"]),
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -634,12 +612,12 @@ export default {
   }
 }
 
-.product-image {
+.word-image {
   width: 50px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.p-dialog .product-image {
+.p-dialog .word-image {
   width: 50px;
   margin: 0 auto 2rem auto;
   display: block;

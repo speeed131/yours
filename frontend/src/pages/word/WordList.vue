@@ -17,7 +17,7 @@ export default defineComponent({
     await store.dispatch("word/getWords");
 
     return {
-      words: computed(() => store.getters("words")),
+      words: computed(() => store.getters["words/words"]),
     };
   },
   // computed: {

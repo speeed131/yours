@@ -10,6 +10,7 @@ class Word(BaseModel):
     id: int = Field(example=1)
     user_id: int = Field(example=1)
     name: str = Field(example="遊ぶ")
+    part_of_speech: str = Field(example="動詞")
     meaning_japanese: str = Field(example="遊ぶ")
     meaning_english: str = Field(example="play")
     memo: str = Field(example="外で遊ぶは play out")

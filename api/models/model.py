@@ -32,6 +32,7 @@ class Word(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     name = Column(String(255), nullable=False)
+    part_of_speech = Column(String(255))
     meaning_japanese = Column(Text)
     meaning_english = Column(Text)
     memo = Column(Text)

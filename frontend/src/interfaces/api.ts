@@ -33,6 +33,7 @@ export interface IWord {
   id: number;
   user_id: number;
   name: string;
+  part_of_speech: string;
   meaning_japanese: string;
   meaning_english: string;
   memo: string;

@@ -13,7 +13,7 @@ class Word(BaseModel):
     meaning_japanese: str = Field(example="遊ぶ")
     meaning_english: str = Field(example="play")
     memo: str = Field(example="外で遊ぶは play out")
-    is_rememberd: bool = Field(example=False)
+    is_rememberd: int = Field(example=5)
     rememberd_at: Optional[str] = Field(example="20210908")
     created_at: datetime
     updated_at: datetime

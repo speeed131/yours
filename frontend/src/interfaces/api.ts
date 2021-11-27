@@ -36,7 +36,7 @@ export interface IWord {
   meaning_japanese: string;
   meaning_english: string;
   memo: string;
-  is_rememberd: boolean;
+  remember_rating: number;
   rememberd_at: string;
   created_at: Date;
   updated_at: Date;

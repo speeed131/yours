@@ -35,7 +35,7 @@ class Word(Base):
     meaning_japanese = Column(Text)
     meaning_english = Column(Text)
     memo = Column(Text)
-    is_rememberd = Column(Boolean, default=False)
+    remember_rating = Column(Integer, default=0)
     rememberd_at = Column(String(255))
     created_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp'))

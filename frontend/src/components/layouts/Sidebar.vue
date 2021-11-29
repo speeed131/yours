@@ -1,6 +1,6 @@
 <template>
   <div class="w-64 h-screen">
-    <nav class="mt-10 px-6">
+    <nav class="mt-10">
       <template v-for="(item, i) in sideBarMenu" :key="i">
         <a
           class="
@@ -8,7 +8,6 @@
             flex
             items-center
             p-2
-            my-6
             transition-colors
             dark:hover:text-white dark:hover:bg-gray-600
             duration-200

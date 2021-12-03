@@ -19,8 +19,21 @@ class Word(BaseModel):
     created_at: datetime
     updated_at: datetime
 
-
 # orm_modeをtrueにすることで、レスポンスが読み取れるようになっている？詳しくは以下を参照 https://fastapi.tiangolo.com/tutorial/sql-databases/?h=orm_mode#use-pydantics-orm_mode
 
+    class Config:
+        orm_mode = True
+
+
+class WordRequest(BaseModel):
+    user_id: int = Field(example=1)
+    name: str = Field(example="遊ぶ")
+    part_of_speech: Optional[str] = Field(example="動詞")
+    meaning_japanese: Optional[str] = Field(example="遊ぶ")
+    meaning_english: Optional[str] = Field(example="play")
+    memo: Optional[str] = Field(example="外で遊ぶは play out")
+    is_rememberd: Optional[int] = Field(example=5)
+    rememberd_at: Optional[str] = Field(example="20210908")    
+    
     class Config:
         orm_mode = True

@@ -96,7 +96,7 @@
         ></Column>
         <Column
           field="rememberd_at"
-          header="覚えたかどうか"
+          header="記憶定着度"
           :sortable="true"
           style="min-width: 12rem"
         >
@@ -146,16 +146,10 @@
     <Dialog
       v-model:visible="productDialog"
       :style="{ width: '450px' }"
-      header="Product Details"
+      header="新規単語登録"
       :modal="true"
       class="p-fluid"
     >
-      <img
-        src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
-        :alt="word.image"
-        class="word-image"
-        v-if="word.image"
-      />
       <div class="p-field">
         <label for="name">単語名</label>
         <InputText
@@ -166,56 +160,41 @@
           :class="{ 'p-invalid': submitted && !word.name }"
         />
         <small class="p-error" v-if="submitted && !word.name"
-          >Name is required.</small
+          >単語名は必要です</small
         >
       </div>
       <div class="p-field">
         <label for="price">意味</label>
-        <InputText
-          id="price"
-          v-model="word.price"
-          mode="currency"
-          currency="USD"
-          locale="en-US"
-        />
+        <InputText id="meaning_japanese" v-model="word.meaning_japanese" />
       </div>
-      <!-- 
-      <div class="p-field">
-        <label for="inventoryStatus" class="p-mb-3">重要度</label>
-        <Dropdown
-          id="inventoryStatus"
-          v-model="word.inventoryStatus"
-          :options="statuses"
-          optionLabel="label"
-          placeholder="Select a Status"
-        >
-          <template #value="slotProps">
-            <div v-if="slotProps.value && slotProps.value.value">
-              <span :class="'word-badge status-' + slotProps.value.value">{{
-                slotProps.value.label
-              }}</span>
-            </div>
-            <div v-else-if="slotProps.value && !slotProps.value.value">
-              <span
-                :class="'word-badge status-' + slotProps.value.toLowerCase()"
-                >{{ slotProps.value }}</span
-              >
-            </div>
-            <span v-else>
-              {{ slotProps.placeholder }}
-            </span>
-          </template>
-        </Dropdown>
-      </div> -->
 
       <div class="p-field">
         <label class="p-mb-3">品詞</label>
         <MultiSelect
-          v-model="selectedCars"
-          :options="cars"
-          optionLabel="brand"
+          v-model="word.part_of_speech"
+          :options="part_of_speech"
+          optionLabel="label"
           placeholder="Select Brands"
         />
+      </div>
+
+      <div class="p-field">
+        <label class="p-mb-3">記憶定着度</label>
+        <div class="p-formgrid flex">
+          <div
+            class="p-field-radiobutton p-col-6 pr-3"
+            v-for="(item, i) in ratings"
+            :key="i"
+          >
+            <RadioButton
+              :id="`remember_rating_${i}`"
+              name="remember_rating"
+              :value="item.value"
+              v-model="word.remember_rating"
+            />
+            <label for="remember_rating"> {{ item.value }} </label>
+          </div>
+        </div>
       </div>
 
       <div class="p-field">
@@ -321,6 +300,7 @@ import Textarea from "primevue/textarea";
 // import Dropdown from "primevue/dropdown";
 import MultiSelect from "primevue/multiselect";
 // import InputNumber from "primevue/inputnumber";
+import RadioButton from "primevue/radiobutton";
 import Dialog from "primevue/dialog";
 import { dispatchGetWords } from "@/hooks/hookGetWords";
 import { useStore } from "vuex";
@@ -338,6 +318,7 @@ export default defineComponent({
     Textarea,
     MultiSelect,
     Dialog,
+    RadioButton,
   },
   setup() {
     onMounted(() => {
@@ -463,9 +444,50 @@ export default defineComponent({
     const productDialog = ref(false);
     const deleteProductDialog = ref(false);
     const deleteProductsDialog = ref(false);
-    const word = ref({});
+    const word = ref<IWord>({
+      
+    });
     // const productService = ref(new ProductService());
     const selectedProducts = ref();
+    const ratings = ref([
+      {
+        value: 1,
+      },
+      {
+        value: 2,
+      },
+      {
+        value: 3,
+      },
+      {
+        value: 4,
+      },
+      {
+        value: 5,
+      },
+    ]);
+    const part_of_speech = ref([
+      {
+        label: "名詞",
+        value: "noun",
+      },
+      {
+        label: "形容詞",
+        value: "adjective",
+      },
+      {
+        label: "動詞",
+        value: "verb",
+      },
+      {
+        label: "副詞",
+        value: "adverb",
+      },
+      {
+        label: "その他",
+        value: "noun",
+      },
+    ]);
     const filters = ref({
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
@@ -496,8 +518,8 @@ export default defineComponent({
           //   life: 3000,
           // });
         } else {
-          word.value.id = createId();
-          word.value.code = createId();
+          // request_data =
+          word.value.user_id = store.getters["auth/loginUser"].user_id;
           word.value.image = "word-placeholder.svg";
           word.value.inventoryStatus = word.value.inventoryStatus
             ? word.value.inventoryStatus.value
@@ -596,6 +618,8 @@ export default defineComponent({
       confirmDeleteSelected,
       deleteSelectedProducts,
       words: computed(() => store.getters["word/words"]),
+      part_of_speech,
+      ratings,
     };
   },
 });

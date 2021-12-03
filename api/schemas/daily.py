@@ -22,3 +22,16 @@ class Daily(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class DailyRequest(BaseModel):
+    user_id: int = Field(example=1)
+    title: str = Field(example="１日のメモ")
+    meaning_japanese: Optional[str] = Field(example="遊ぶは英語でなんというのか")
+    meaning_english: Optional[str] = Field(example="play")
+    is_open: Optional[bool] = Field(example=False)
+    opened_at: Optional[str] = Field(example="20210908")
+    class Config:
+        orm_mode = True
+
+

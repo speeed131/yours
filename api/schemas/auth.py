@@ -20,7 +20,6 @@ class UserInDB(User):
     class Config:
         orm_mode = True
 
-
 class UserCreate(BaseModel):
     username: str = Field(example="daiki")
     password: str = Field(example="hirose")
@@ -36,7 +35,6 @@ class UserResponse(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
-
 
 class TokenData(BaseModel):
     username: Optional[str] = None

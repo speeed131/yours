@@ -14,7 +14,7 @@ class Word(BaseModel):
     meaning_japanese: str = Field(example="遊ぶ")
     meaning_english: str = Field(example="play")
     memo: str = Field(example="外で遊ぶは play out")
-    is_rememberd: int = Field(example=5)
+    remember_rating: int = Field(example=5)
     rememberd_at: Optional[str] = Field(example="20210908")
     created_at: datetime
     updated_at: datetime
@@ -32,7 +32,7 @@ class WordRequest(BaseModel):
     meaning_japanese: Optional[str] = Field(example="遊ぶ")
     meaning_english: Optional[str] = Field(example="play")
     memo: Optional[str] = Field(example="外で遊ぶは play out")
-    is_rememberd: Optional[int] = Field(example=5)
+    remember_rating: Optional[int] = Field(example=5)
     rememberd_at: Optional[str] = Field(example="20210908")    
     
     class Config:

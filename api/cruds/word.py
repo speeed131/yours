@@ -38,7 +38,7 @@ async def get_word_by_word_id(
 
 
 async def create_word(
-    word_data: schemas_word.Word,
+    word_data: schemas_word.WordRequest,
     current_user: schemas_auth.User,
     db: AsyncSession
 ) -> Any:

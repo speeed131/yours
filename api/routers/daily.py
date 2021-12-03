@@ -34,7 +34,7 @@ async def get_daily_detail(
 
 @router.post("/dailies", response_model=schemas_daily.Daily)
 async def create_daily(
-    daily_data: schemas_daily.Daily,
+    daily_data: schemas_daily.DailyRequest,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
     db: AsyncSession = Depends(get_db)
 

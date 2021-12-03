@@ -35,7 +35,7 @@ async def get_word(
 
 @router.post("/words", response_model=schemas_word.Word)
 async def create_word(
-    word_data: schemas_word.Word,
+    word_data: schemas_word.WordRequest,
     current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
     db: AsyncSession = Depends(get_db)
 ):

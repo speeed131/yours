@@ -36,7 +36,7 @@ async def get_daily_by_daily_id(
 
 
 async def create_daily(
-    daily_data: schemas_daily.Daily,
+    daily_data: schemas_daily.DailyRequest,
     current_user: schemas_auth.User,
     db: AsyncSession
 ) -> schemas_daily.Daily:

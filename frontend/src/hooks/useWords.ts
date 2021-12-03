@@ -1,10 +1,17 @@
-import { IWord } from "@/interfaces/api";
+import { IWord, IWordRequest } from "@/interfaces/api";
 import { ref, computed, Ref } from "vue";
 import { useStore } from "vuex";
 
 export const dispatchGetWords = async () => {
   const store = useStore();
   await store.dispatch("word/getWords");
+};
+
+export const dispatchPostWord = async (wordData: IWordRequest) => {
+  const store = useStore();
+  console.log(wordData);
+  console.log("dispatchPostWord");
+  await store.dispatch("word/postWord", wordData);
 };
 
 //＠MEMO:Composition API 内ではreturn computed しか使えない。。。。。 必要なさそう

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="card">
-      {{ words }}
       <Toolbar class="p-mb-4">
         <template #start>
           <Button
@@ -171,9 +170,8 @@
       <div class="p-field">
         <label class="p-mb-3">品詞</label>
         <MultiSelect
-          v-model="word.part_of_speech"
+          v-model="selectedPartOfSpeech"
           :options="part_of_speech"
-          optionLabel="label"
           placeholder="Select Brands"
         />
       </div>
@@ -201,7 +199,7 @@
         <label for="description">メモ</label>
         <Textarea
           id="description"
-          v-model="word.description"
+          v-model="word.memo"
           required="true"
           rows="3"
           cols="20"
@@ -302,9 +300,10 @@ import MultiSelect from "primevue/multiselect";
 // import InputNumber from "primevue/inputnumber";
 import RadioButton from "primevue/radiobutton";
 import Dialog from "primevue/dialog";
-import { dispatchGetWords } from "@/hooks/hookGetWords";
+import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
 import { useStore } from "vuex";
-import { IWord } from "@/interfaces/api";
+import { IWord, IWordRequest } from "@/interfaces/api";
+import { api } from "@/api";
 
 export default defineComponent({
   components: {
@@ -331,6 +330,7 @@ export default defineComponent({
     };
     load();
     const store = useStore();
+    const selectedPartOfSpeech = ref([]);
     const products = ref([
       {
         id: "1000",
@@ -444,8 +444,16 @@ export default defineComponent({
     const productDialog = ref(false);
     const deleteProductDialog = ref(false);
     const deleteProductsDialog = ref(false);
-    const word = ref<IWord>({
-      
+    //@TODO: このwordをstoreで管理する?
+    const word = ref<IWordRequest>({
+      user_id: 0,
+      name: "",
+      part_of_speech: "",
+      meaning_japanese: "",
+      meaning_english: "",
+      memo: "",
+      remember_rating: 0,
+      rememberd_at: "",
     });
     // const productService = ref(new ProductService());
     const selectedProducts = ref();
@@ -466,35 +474,14 @@ export default defineComponent({
         value: 5,
       },
     ]);
-    const part_of_speech = ref([
-      {
-        label: "名詞",
-        value: "noun",
-      },
-      {
-        label: "形容詞",
-        value: "adjective",
-      },
-      {
-        label: "動詞",
-        value: "verb",
-      },
-      {
-        label: "副詞",
-        value: "adverb",
-      },
-      {
-        label: "その他",
-        value: "noun",
-      },
-    ]);
+    const part_of_speech = ref(["名詞", "形容詞", "動詞", "副詞", "その他"]);
     const filters = ref({
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
     const submitted = ref(false);
 
     const openNew = () => {
-      word.value = {};
+      // word.value = {};
       submitted.value = false;
       productDialog.value = true;
     };
@@ -502,39 +489,37 @@ export default defineComponent({
       productDialog.value = false;
       submitted.value = false;
     };
-    const saveProduct = () => {
+    const saveProduct = async () => {
       submitted.value = true;
 
       if (word.value.name.trim()) {
-        if (word.value.id) {
-          word.value.inventoryStatus = word.value.inventoryStatus.value
-            ? word.value.inventoryStatus.value
-            : word.value.inventoryStatus;
-          products.value[findIndexById(word.value.id)] = word.value;
-          // useToast.add({
-          //   severity: "success",
-          //   summary: "Successful",
-          //   detail: "Product Updated",
-          //   life: 3000,
-          // });
-        } else {
-          // request_data =
-          word.value.user_id = store.getters["auth/loginUser"].user_id;
-          word.value.image = "word-placeholder.svg";
-          word.value.inventoryStatus = word.value.inventoryStatus
-            ? word.value.inventoryStatus.value
-            : "INSTOCK";
-          products.value.push(word.value);
+        const requestData = { ...word.value };
+        requestData.part_of_speech = selectedPartOfSpeech.value.reduce(
+          (accumulator: string, currentValue: string) => {
+            return accumulator + currentValue;
+          },
+          ""
+        );
+        try {
+          console.log(requestData);
+          requestData.user_id = store.getters["auth/loginUser"].id;
+
+          await api.word.postWord(requestData);
+          // const load = async () => {
+          //   const res = await dispatchPostWord(requestData);
+          //   console.log(res);
+          // };
+          // load();
           // useToast.add({
           //   severity: "success",
           //   summary: "Successful",
           //   detail: "Product Created",
           //   life: 3000,
           // });
+        } finally {
+          await store.dispatch("word/getWords");
+          productDialog.value = false;
         }
-
-        productDialog.value = false;
-        word.value = {};
       }
     };
     const editProduct = (prod: any) => {
@@ -546,9 +531,9 @@ export default defineComponent({
       deleteProductDialog.value = true;
     };
     const deleteProduct = () => {
-      products.value = products.value.filter((val) => val.id !== word.value.id);
+      // products.value = products.value.filter((val) => val.id !== word.value.id);
       deleteProductDialog.value = false;
-      word.value = {};
+      // word.value = {};
       // useToast.add({
       //   severity: "success",
       //   summary: "Successful",
@@ -618,6 +603,7 @@ export default defineComponent({
       confirmDeleteSelected,
       deleteSelectedProducts,
       words: computed(() => store.getters["word/words"]),
+      selectedPartOfSpeech,
       part_of_speech,
       ratings,
     };

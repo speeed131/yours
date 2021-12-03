@@ -1,6 +1,6 @@
 import { api } from "@/api/index";
 import { ActionContext } from "vuex";
-import { IWord } from "@/interfaces/api";
+import { IWord, IWordRequest } from "@/interfaces/api";
 import { WordState } from "@/interfaces/state";
 
 // initial state
@@ -33,7 +33,7 @@ const actions = {
   //@MEMO: 今の所あまり必要なさそうCommit
   async postWord(
     { commit }: ActionContext<WordState, any>,
-    data: IWord
+    data: IWordRequest
   ): Promise<void> {
     try {
       const response = await api.word.postWord(data);

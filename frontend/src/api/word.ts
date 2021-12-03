@@ -1,9 +1,9 @@
 import axios from "axios";
-import { IWord } from "@/interfaces/api";
+import { IWord, IWordRequest } from "@/interfaces/api";
 import { utils } from "@/utils";
 
 export const word = {
-  async postWord(request_data: IWord): Promise<IWord | undefined> {
+  async postWord(request_data: IWordRequest): Promise<IWord | undefined> {
     try {
       const token: string | null = utils.getLocalToken();
       const res = await axios.post<IWord>(

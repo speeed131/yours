@@ -56,5 +56,12 @@ export interface IDaily {
 }
 
 export interface IWordRequest {
-  
+  user_id: number;
+  name: string;
+  part_of_speech?: string;
+  meaning_japanese?: string;
+  meaning_english?: string;
+  memo?: string;
+  remember_rating?: number;
+  rememberd_at?: string;
 }

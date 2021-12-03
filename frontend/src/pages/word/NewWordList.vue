@@ -94,14 +94,14 @@
           style="min-width: 10rem"
         ></Column>
         <Column
-          field="rememberd_at"
+          field="remember_rating"
           header="記憶定着度"
           :sortable="true"
           style="min-width: 12rem"
         >
           <template #body="slotProps">
             <Rating
-              :modelValue="slotProps.data.rating"
+              :modelValue="slotProps.data.remember_rating"
               :readonly="true"
               :cancel="false"
             />

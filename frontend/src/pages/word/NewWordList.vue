@@ -34,6 +34,7 @@
       <DataTable
         ref="dt"
         :value="words"
+        sortMode="multiple"
         v-model:selection="selectedWords"
         dataKey="id"
         :paginator="true"
@@ -230,14 +231,13 @@
     <Dialog
       v-model:visible="deleteProductDialog"
       :style="{ width: '450px' }"
-      header="Confirm"
+      header="確認"
       :modal="true"
     >
       <div class="confirmation-content">
-        <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
+        <i class="p-mr-3" style="font-size: 2rem" />
         <span v-if="word"
-          >Are you sure you want to delete <b>{{ word.name }}</b
-          >?</span
+          >記憶済みに移動されますがよろしいですか？<b>{{ word.name }}</b></span
         >
       </div>
       <template #footer>

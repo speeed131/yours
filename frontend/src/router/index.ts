@@ -4,7 +4,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "@/pages/Home.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import WordList from "@/pages/word/WordList.vue";
-import WordListToRemember from "@/pages/word/WordListToRemember.vue";
+import WordsListRemembered from "@/pages/word/WordsListRemembered.vue";
 import DailyList from "@/pages/daily/DailyList.vue";
 import Login from "@/pages/beforelogin/login.vue";
 import Register from "@/pages/beforelogin/register.vue";
@@ -55,15 +55,10 @@ const routes: Array<RouteRecordRaw> = [
         name: "Words",
         component: NewWordList,
         children: [
-          // {
-          //   path: "/register"
-          //   name: "WordsRegister"
-          //   component: Word
-          // },
           {
-            path: "/toRemember",
-            name: "WordsToRemember",
-            component: WordListToRemember,
+            path: "remembered",
+            name: "WordsRemembered",
+            component: WordsListRemembered,
           },
         ],
       },

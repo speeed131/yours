@@ -1,5 +1,5 @@
 <template>
-  <div class="WordListNotRemembered">
+  <div class="WordsListRemembered">
     {{ msg }}
   </div>
 </template>
@@ -8,7 +8,7 @@
 import { defineComponent, reactive, toRefs } from "vue";
 
 export default defineComponent({
-  name: "WordListNotRemembered",
+  name: "WordsListRemembered",
   components: {},
   setup() {
     const state = reactive({

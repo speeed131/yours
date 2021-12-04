@@ -43,14 +43,14 @@ export default defineComponent({
           class: "fas fa-tv",
         },
         {
-          title: "登録した単語一覧",
+          title: "未習得の単語一覧",
           routeName: "Words",
-          class: "fas fa-newspaper",
+          class: "fas fa-user-circle",
         },
         {
-          title: "未習得の単語一覧",
-          routeName: "WordsToRemember",
-          class: "fas fa-user-circle",
+          title: "習得済みの単語一覧",
+          routeName: "WordsRemembered",
+          class: "fas fa-newspaper",
         },
         {
           title: "作成した日記一覧",

@@ -14,7 +14,7 @@
             icon="pi pi-trash"
             class="p-button-danger"
             @click="confirmDeleteSelected"
-            :disabled="!selectedProducts || !selectedProducts.length"
+            :disabled="!selectedWords || !selectedWords.length"
           />
         </template>
 
@@ -34,7 +34,7 @@
       <DataTable
         ref="dt"
         :value="words"
-        v-model:selection="selectedProducts"
+        v-model:selection="selectedWords"
         dataKey="id"
         :paginator="true"
         :rows="5"
@@ -107,33 +107,39 @@
             />
           </template>
         </Column>
-        <!-- <Column
-          field="inventoryStatus"
-          header="Status"
+        <!-- <Column -->
+        <!-- field="rememberd_at"
+          header="記憶済み"
           :sortable="true"
-          style="min-width: 12rem"
+          style="min-width: 6rem"
         >
           <template #body="slotProps">
-            <span
-              :class="
-                'word-badge status-' +
-                (slotProps.data.inventoryStatus
-                  ? slotProps.data.inventoryStatus.toLowerCase()
-                  : '')
-              "
-              >{{ slotProps.data.inventoryStatus }}</span
-            >
-          </template>
+            <template v-if="slotProps.data.rememberd_at === ''">
+              <i  class="pi pi-check"></i>
+            </template>
+          <template>
         </Column> -->
+        <Column
+          field="rememberd_at"
+          header="記憶済み"
+          :sortable="true"
+          style="min-width: 6rem"
+        >
+          <template #body="slotProps">
+            <span v-if="slotProps.data.rememberd_at !== ''">
+              <i class="pi pi-check"></i>
+            </span>
+          </template>
+        </Column>
         <Column :exportable="false" style="min-width: 8rem">
           <template #body="slotProps">
-            <Button
+            <!-- <Button
               icon="pi pi-pencil"
               class="p-button-rounded p-button-success p-mr-2"
               @click="editProduct(slotProps.data)"
-            />
+            /> -->
             <Button
-              icon="pi pi-trash"
+              icon="pi pi-check"
               class="p-button-rounded p-button-warning"
               @click="confirmDeleteProduct(slotProps.data)"
             />
@@ -273,7 +279,7 @@
           label="Yes"
           icon="pi pi-check"
           class="p-button-text"
-          @click="deleteSelectedProducts"
+          @click="deleteSelectedWords"
         />
       </template>
     </Dialog>
@@ -302,7 +308,7 @@ import RadioButton from "primevue/radiobutton";
 import Dialog from "primevue/dialog";
 import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
 import { useStore } from "vuex";
-import { IWord, IWordRequest } from "@/interfaces/api";
+import { IWord, IWord, IWordRequest } from "@/interfaces/api";
 import { api } from "@/api";
 
 export default defineComponent({
@@ -456,7 +462,7 @@ export default defineComponent({
       rememberd_at: "",
     });
     // const productService = ref(new ProductService());
-    const selectedProducts = ref();
+    const selectedWords = ref();
     const ratings = ref([
       {
         value: 1,
@@ -526,12 +532,13 @@ export default defineComponent({
       word.value = { ...prod };
       productDialog.value = true;
     };
-    const confirmDeleteProduct = (prod: any) => {
-      word.value = prod;
+    const confirmDeleteProduct = (word: any) => {
+      word.value = word;
       deleteProductDialog.value = true;
     };
     const deleteProduct = () => {
       // products.value = products.value.filter((val) => val.id !== word.value.id);
+
       deleteProductDialog.value = false;
       // word.value = {};
       // useToast.add({
@@ -567,12 +574,12 @@ export default defineComponent({
     const confirmDeleteSelected = () => {
       deleteProductsDialog.value = true;
     };
-    const deleteSelectedProducts = () => {
+    const deleteSelectedWords = () => {
       products.value = products.value.filter(
-        (val) => !selectedProducts.value.includes(val)
+        (val) => !selectedWords.value.includes(val)
       );
       deleteProductsDialog.value = false;
-      selectedProducts.value = null;
+      selectedWords.value = null;
       // useToast.add({
       //   severity: "success",
       //   summary: "Successful",
@@ -588,7 +595,7 @@ export default defineComponent({
       deleteProductDialog,
       deleteProductsDialog,
       word,
-      selectedProducts,
+      selectedWords,
       filters,
       submitted,
       openNew,
@@ -601,7 +608,7 @@ export default defineComponent({
       createId,
       exportCSV,
       confirmDeleteSelected,
-      deleteSelectedProducts,
+      deleteSelectedWords,
       words: computed(() => store.getters["word/words"]),
       selectedPartOfSpeech,
       part_of_speech,

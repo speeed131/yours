@@ -57,3 +57,21 @@ async def delete_word_by_word_id(
     await db.delete(word)
     await db.commit()
     return word.id
+
+async def update_word_by_word_id(
+    update_word: model.Word,
+    update_word_data: schemas_word.WordRequest,
+    current_user: schemas_auth.User,
+    db: AsyncSession
+) -> model.Word:
+    update_word.name = update_word_data.name
+    update_word.part_of_speech = update_word_data.part_of_speech
+    update_word.meaning_japanese = update_word_data.meaning_japanese
+    update_word.meaning_english = update_word_data.meaning_english
+    update_word.is_remembered = update_word_data.is_remembered
+    update_word.remember_rating = update_word_data.remember_rating
+    update_word.remembered_at = update_word_data.remembered_at
+    db.add(update_word)
+    await db.commit()
+    await db.refresh(update_word)
+    return update_word

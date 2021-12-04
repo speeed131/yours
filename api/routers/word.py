@@ -53,3 +53,16 @@ async def delete_word(
     word = await cruds_word.get_word_by_word_id(word_id, current_user, db)
     result = await cruds_word.delete_word_by_word_id(word, current_user, db)
     return result
+
+
+@router.put("/words/{word_id}", response_model=schemas_word.Word)
+async def update_word(
+    update_word_id: int,
+    update_word_data: schemas_word.WordRequest,
+    current_user: schemas_auth.User = Depends(cruds_auth.get_current_user),
+    db: AsyncSession = Depends(get_db)
+):
+    # [バックエンド] 単語の更新
+    update_word = await cruds_word.get_word_by_word_id(update_word_id, current_user, db)
+    result = await cruds_word.update_word_by_word_id(update_word, update_word_data, current_user, db)
+    return result

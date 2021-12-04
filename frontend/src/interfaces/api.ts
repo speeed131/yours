@@ -38,7 +38,8 @@ export interface IWord {
   meaning_english: string;
   memo: string;
   remember_rating: number;
-  rememberd_at: string;
+  is_remembered: boolean;
+  remembered_at: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -62,6 +63,7 @@ export interface IWordRequest {
   meaning_japanese?: string;
   meaning_english?: string;
   memo?: string;
+  is_remembered?: boolean;
   remember_rating?: number;
-  rememberd_at?: string;
+  remembered_at?: string;
 }

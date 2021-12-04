@@ -109,25 +109,25 @@
           </template>
         </Column>
         <!-- <Column -->
-        <!-- field="rememberd_at"
+        <!-- field="remembered_at"
           header="記憶済み"
           :sortable="true"
           style="min-width: 6rem"
         >
           <template #body="slotProps">
-            <template v-if="slotProps.data.rememberd_at === ''">
+            <template v-if="slotProps.data.remembered_at === ''">
               <i  class="pi pi-check"></i>
             </template>
           <template>
         </Column> -->
         <Column
-          field="rememberd_at"
+          field="remembered_at"
           header="記憶済み"
           :sortable="true"
           style="min-width: 6rem"
         >
           <template #body="slotProps">
-            <span v-if="slotProps.data.rememberd_at !== ''">
+            <span v-if="slotProps.data.remembered_at !== ''">
               <i class="pi pi-check"></i>
             </span>
           </template>
@@ -458,8 +458,9 @@ export default defineComponent({
       meaning_japanese: "",
       meaning_english: "",
       memo: "",
+      is_remembered: false,
       remember_rating: 0,
-      rememberd_at: "",
+      remembered_at: "",
     });
     // const productService = ref(new ProductService());
     const selectedWords = ref();

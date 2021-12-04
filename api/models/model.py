@@ -37,7 +37,8 @@ class Word(Base):
     meaning_english = Column(Text)
     memo = Column(Text)
     remember_rating = Column(Integer, default=0)
-    rememberd_at = Column(String(255))
+    is_remembered = Column(Boolean, default=False)
+    remembered_at = Column(String(255))
     created_at = Column(Timestamp, nullable=False,
                         server_default=text('current_timestamp'))
     updated_at = Column(Timestamp, nullable=False,

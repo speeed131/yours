@@ -27,7 +27,12 @@
             chooseLabel="Import"
             class="p-mr-2 p-d-inline-block"
           />
-          <Button label="Export" icon="pi pi-upload" class="p-button-help" />
+          <Button
+            label="Export"
+            icon="pi pi-upload"
+            class="p-button-help"
+            @click="exportCSV()"
+          />
         </template>
       </Toolbar>
 
@@ -120,7 +125,7 @@
             </template>
           <template>
         </Column> -->
-        <Column
+        <!-- <Column
           field="remembered_at"
           header="記憶済み"
           :sortable="true"
@@ -131,8 +136,8 @@
               <i class="pi pi-check"></i>
             </span>
           </template>
-        </Column>
-        <Column :exportable="false" style="min-width: 8rem">
+        </Column> -->
+        <Column :exportable="false" style="min-width: 4rem">
           <template #body="slotProps">
             <!-- <Button
               icon="pi pi-pencil"
@@ -142,7 +147,7 @@
             <Button
               icon="pi pi-check"
               class="p-button-rounded p-button-warning"
-              @click="confirmDeleteProduct(slotProps.data)"
+              @click="confirmArchiveWord(slotProps.data)"
             />
           </template>
         </Column>
@@ -150,7 +155,7 @@
     </div>
 
     <Dialog
-      v-model:visible="productDialog"
+      v-model:visible="wordDialog"
       :style="{ width: '450px' }"
       header="新規単語登録"
       :modal="true"
@@ -184,7 +189,7 @@
       </div>
 
       <div class="p-field">
-        <label class="p-mb-3">記憶定着度</label>
+        <label class="p-mb-3">重要度</label>
         <div class="p-formgrid flex">
           <div
             class="p-field-radiobutton p-col-6 pr-3"
@@ -229,7 +234,7 @@
     </Dialog>
 
     <Dialog
-      v-model:visible="deleteProductDialog"
+      v-model:visible="archiveWordDialog"
       :style="{ width: '450px' }"
       header="確認"
       :modal="true"
@@ -245,13 +250,13 @@
           label="No"
           icon="pi pi-times"
           class="p-button-text"
-          @click="deleteProductDialog = false"
+          @click="archiveWordDialog = false"
         />
         <Button
           label="Yes"
           icon="pi pi-check"
           class="p-button-text"
-          @click="deleteProduct"
+          @click="archiveWord()"
         />
       </template>
     </Dialog>
@@ -308,7 +313,7 @@ import RadioButton from "primevue/radiobutton";
 import Dialog from "primevue/dialog";
 import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
 import { useStore } from "vuex";
-import { IWord, IWord, IWordRequest } from "@/interfaces/api";
+import { IWord, IWordRequest } from "@/interfaces/api";
 import { api } from "@/api";
 
 export default defineComponent({
@@ -337,118 +342,8 @@ export default defineComponent({
     load();
     const store = useStore();
     const selectedPartOfSpeech = ref([]);
-    const products = ref([
-      {
-        id: "1000",
-        code: "f230fh0g3",
-        name: "Bamboo Watch",
-        description: "Product Description",
-        image: "bamboo-watch.jpg",
-        price: 65,
-        category: "Accessories",
-        quantity: 24,
-        inventoryStatus: "INSTOCK",
-        rating: 5,
-      },
-      {
-        id: "1000",
-        code: "f230fh0g3",
-        name: "Bamboo Watch",
-        description: "Product Description",
-        image: "bamboo-watch.jpg",
-        price: 65,
-        category: "Accessories",
-        quantity: 24,
-        inventoryStatus: "INSTOCK",
-        rating: 5,
-      },
-      {
-        id: "1000",
-        code: "f230fh0g3",
-        name: "Bamboo Watch",
-        description: "Product Description",
-        image: "bamboo-watch.jpg",
-        price: 65,
-        category: "Accessories",
-        quantity: 24,
-        inventoryStatus: "INSTOCK",
-        rating: 5,
-      },
-      {
-        id: "1000",
-        code: "f230fh0g3",
-        name: "Bamboo Watch",
-        description: "Product Description",
-        image: "bamboo-watch.jpg",
-        price: 65,
-        category: "Accessories",
-        quantity: 24,
-        inventoryStatus: "INSTOCK",
-        rating: 5,
-      },
-      {
-        id: "1001",
-        code: "nvklal433",
-        name: "Black Watch",
-        description: "Product Description",
-        image: "black-watch.jpg",
-        price: 72,
-        category: "Accessories",
-        quantity: 61,
-        inventoryStatus: "INSTOCK",
-        rating: 4,
-      },
-      {
-        id: "1002",
-        code: "zz21cz3c1",
-        name: "Blue Band",
-        description: "Product Description",
-        image: "blue-band.jpg",
-        price: 79,
-        category: "Fitness",
-        quantity: 2,
-        inventoryStatus: "LOWSTOCK",
-        rating: 3,
-      },
-      {
-        id: "1003",
-        code: "244wgerg2",
-        name: "Blue T-Shirt",
-        description: "Product Description",
-        image: "blue-t-shirt.jpg",
-        price: 29,
-        category: "Clothing",
-        quantity: 25,
-        inventoryStatus: "INSTOCK",
-        rating: 5,
-      },
-      {
-        id: "1004",
-        code: "h456wer53",
-        name: "Bracelet",
-        description: "Product Description",
-        image: "bracelet.jpg",
-        price: 15,
-        category: "Accessories",
-        quantity: 73,
-        inventoryStatus: "INSTOCK",
-        rating: 4,
-      },
-      {
-        id: "1005",
-        code: "av2231fwg",
-        name: "Brown Purse",
-        description: "Product Description",
-        image: "brown-purse.jpg",
-        price: 120,
-        category: "Accessories",
-        quantity: 0,
-        inventoryStatus: "OUTOFSTOCK",
-        rating: 4,
-      },
-    ]);
-    const productDialog = ref(false);
-    const deleteProductDialog = ref(false);
+    const wordDialog = ref(false);
+    const archiveWordDialog = ref(false);
     const deleteProductsDialog = ref(false);
     //@TODO: このwordをstoreで管理する?
     const word = ref<IWordRequest>({
@@ -462,6 +357,7 @@ export default defineComponent({
       remember_rating: 0,
       remembered_at: "",
     });
+    const updateWord = ref<any>({});
     // const productService = ref(new ProductService());
     const selectedWords = ref();
     const ratings = ref([
@@ -488,17 +384,26 @@ export default defineComponent({
     const submitted = ref(false);
 
     const openNew = () => {
-      // word.value = {};
+      word.value = {
+        user_id: 0,
+        name: "",
+        part_of_speech: "",
+        meaning_japanese: "",
+        meaning_english: "",
+        memo: "",
+        is_remembered: false,
+        remember_rating: 0,
+        remembered_at: "",
+      };
       submitted.value = false;
-      productDialog.value = true;
+      wordDialog.value = true;
     };
     const hideDialog = () => {
-      productDialog.value = false;
+      wordDialog.value = false;
       submitted.value = false;
     };
     const saveProduct = async () => {
       submitted.value = true;
-
       if (word.value.name.trim()) {
         const requestData = { ...word.value };
         requestData.part_of_speech = selectedPartOfSpeech.value.reduce(
@@ -508,15 +413,9 @@ export default defineComponent({
           ""
         );
         try {
-          console.log(requestData);
           requestData.user_id = store.getters["auth/loginUser"].id;
 
           await api.word.postWord(requestData);
-          // const load = async () => {
-          //   const res = await dispatchPostWord(requestData);
-          //   console.log(res);
-          // };
-          // load();
           // useToast.add({
           //   severity: "success",
           //   summary: "Successful",
@@ -525,23 +424,31 @@ export default defineComponent({
           // });
         } finally {
           await store.dispatch("word/getWords");
-          productDialog.value = false;
+          wordDialog.value = false;
         }
       }
     };
-    const editProduct = (prod: any) => {
-      word.value = { ...prod };
-      productDialog.value = true;
-    };
-    const confirmDeleteProduct = (word: any) => {
-      word.value = word;
-      deleteProductDialog.value = true;
-    };
-    const deleteProduct = () => {
-      // products.value = products.value.filter((val) => val.id !== word.value.id);
 
-      deleteProductDialog.value = false;
-      // word.value = {};
+    // const editProduct = async (thisWord: any) => {
+    //   word.value = thisWord;
+    //   wordDialog.value = true;
+    // };
+
+    const confirmArchiveWord = (thisWord: any) => {
+      console.log(thisWord);
+      updateWord.value = thisWord;
+      archiveWordDialog.value = true;
+    };
+    const archiveWord = async () => {
+      const requestData = { ...updateWord.value };
+      requestData.is_remembered = true;
+      requestData.remembered_at = new Date();
+      try {
+        const res = await api.word.updateWord(requestData.id, requestData);
+      } finally {
+        await store.dispatch("word/getWords");
+        archiveWordDialog.value = false;
+      }
       // useToast.add({
       //   severity: "success",
       //   summary: "Successful",
@@ -549,38 +456,23 @@ export default defineComponent({
       //   life: 3000,
       // });
     };
-    const findIndexById = (id: any) => {
-      let index = -1;
-      for (let i = 0; i < products.value.length; i++) {
-        if (products.value[i].id === id) {
-          index = i;
-          break;
-        }
-      }
-
-      return index;
-    };
-    const createId = () => {
-      let id = "";
-      var chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      for (var i = 0; i < 5; i++) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return id;
-    };
     const exportCSV = () => {
       dt.value.exportCSV();
     };
     const confirmDeleteSelected = () => {
       deleteProductsDialog.value = true;
     };
-    const deleteSelectedWords = () => {
-      products.value = products.value.filter(
-        (val) => !selectedWords.value.includes(val)
-      );
-      deleteProductsDialog.value = false;
-      selectedWords.value = null;
+    const deleteSelectedWords = async () => {
+      try {
+        selectedWords.value.forEach((item: IWord) => {
+          updateWord.value = item;
+          console.log(updateWord.value);
+          archiveWord();
+        });
+      } finally {
+        await store.dispatch("word/getWords");
+        deleteProductsDialog.value = false;
+      }
       // useToast.add({
       //   severity: "success",
       //   summary: "Successful",
@@ -591,9 +483,8 @@ export default defineComponent({
 
     return {
       dt,
-      products,
-      productDialog,
-      deleteProductDialog,
+      wordDialog,
+      archiveWordDialog,
       deleteProductsDialog,
       word,
       selectedWords,
@@ -602,18 +493,18 @@ export default defineComponent({
       openNew,
       hideDialog,
       saveProduct,
-      editProduct,
-      confirmDeleteProduct,
-      deleteProduct,
-      findIndexById,
-      createId,
+      confirmArchiveWord,
+      archiveWord,
       exportCSV,
       confirmDeleteSelected,
       deleteSelectedWords,
-      words: computed(() => store.getters["word/words"]),
+      words: computed(() =>
+        store.getters["word/words"].filter((item: IWord) => !item.is_remembered)
+      ),
       selectedPartOfSpeech,
       part_of_speech,
       ratings,
+      updateWord,
     };
   },
 });

@@ -59,11 +59,11 @@ async def delete_word_by_word_id(
     return word.id
 
 async def update_word_by_word_id(
-    update_word: model.Word,
-    update_word_data: schemas_word.WordRequest,
+    update_word: schemas_word.Word,
+    update_word_data: schemas_word.Word,
     current_user: schemas_auth.User,
     db: AsyncSession
-) -> model.Word:
+) -> schemas_word.Word:
     update_word.name = update_word_data.name
     update_word.part_of_speech = update_word_data.part_of_speech
     update_word.meaning_japanese = update_word_data.meaning_japanese

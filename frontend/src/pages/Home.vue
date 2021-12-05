@@ -1,252 +1,20 @@
 <template>
   <div>
-    <!-- <Sidebar /> -->
-    <!-- <Sidebar :visible="true" class="p-sidebar-lg"> Content </Sidebar> -->
-
-    <!-- <Header></Header> -->
-    <div class="relative bg-blueGray-100">
-      <!-- Header -->
-      <div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
+    <div class="bg-blueGray-100">
+      <div class="md:pt-32 pb-32 pt-12">
         <div class="px-4 md:px-10 mx-auto w-full">
           <div>
-            <!-- Card stats -->
-            <div class="flex flex-wrap">
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="
-                    relative
-                    flex flex-col
-                    min-w-0
-                    break-words
-                    bg-white
-                    rounded
-                    mb-6
-                    xl:mb-0
-                    shadow-lg
-                  "
-                >
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          Traffic
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          350,897
-                        </span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="
-                            text-white
-                            p-3
-                            text-center
-                            inline-flex
-                            items-center
-                            justify-center
-                            w-12
-                            h-12
-                            shadow-lg
-                            rounded-full
-                            bg-red-500
-                          "
-                        >
-                          <i class="far fa-chart-bar"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-emerald-500 mr-2">
-                        <i class="fas fa-arrow-up"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap"> Since last month </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="
-                    relative
-                    flex flex-col
-                    min-w-0
-                    break-words
-                    bg-white
-                    rounded
-                    mb-6
-                    xl:mb-0
-                    shadow-lg
-                  "
-                >
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          New users
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          2,356
-                        </span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="
-                            text-white
-                            p-3
-                            text-center
-                            inline-flex
-                            items-center
-                            justify-center
-                            w-12
-                            h-12
-                            shadow-lg
-                            rounded-full
-                            bg-orange-500
-                          "
-                        >
-                          <i class="fas fa-chart-pie"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-red-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap"> Since last week </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="
-                    relative
-                    flex flex-col
-                    min-w-0
-                    break-words
-                    bg-white
-                    rounded
-                    mb-6
-                    xl:mb-0
-                    shadow-lg
-                  "
-                >
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          Sales
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          924
-                        </span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="
-                            text-white
-                            p-3
-                            text-center
-                            inline-flex
-                            items-center
-                            justify-center
-                            w-12
-                            h-12
-                            shadow-lg
-                            rounded-full
-                            bg-pink-500
-                          "
-                        >
-                          <i class="fas fa-users"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-orange-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 1.10%
-                      </span>
-                      <span class="whitespace-nowrap"> Since yesterday </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div
-                  class="
-                    relative
-                    flex flex-col
-                    min-w-0
-                    break-words
-                    bg-white
-                    rounded
-                    mb-6
-                    xl:mb-0
-                    shadow-lg
-                  "
-                >
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div
-                        class="relative w-full pr-4 max-w-full flex-grow flex-1"
-                      >
-                        <h5
-                          class="text-blueGray-400 uppercase font-bold text-xs"
-                        >
-                          Performance
-                        </h5>
-                        <span class="font-semibold text-xl text-blueGray-700">
-                          49,65%
-                        </span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div
-                          class="
-                            text-white
-                            p-3
-                            text-center
-                            inline-flex
-                            items-center
-                            justify-center
-                            w-12
-                            h-12
-                            shadow-lg
-                            rounded-full
-                            bg-lightBlue-500
-                          "
-                        >
-                          <i class="fas fa-percent"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-emerald-500 mr-2">
-                        <i class="fas fa-arrow-up"></i> 12%
-                      </span>
-                      <span class="whitespace-nowrap"> Since last month </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div class="card">
+              <h5>進捗</h5>
+              <Chart type="bar" :data="basicData" :options="basicOptions" />
             </div>
           </div>
         </div>
       </div>
       <div class="px-4 md:px-10 mx-auto w-full -m-24">
         <div class="flex flex-wrap">
-          <line-chart-component></line-chart-component>
-          <bar-chart-component></bar-chart-component>
+          <!-- <line-chart-component></line-chart-component> -->
+          <!-- <bar-chart-component></bar-chart-component> -->
         </div>
         <div class="flex flex-wrap mt-4">
           <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
@@ -1144,24 +912,131 @@
     </div>
   </div>
 </template>
+
 <script>
-// import Header from "../components/layouts/Header.vue";
-// import Sidebar from "../components/layouts/Sidebar.vue";
-// import Sidebar from "primevue/sidebar";
+import { ref, onMounted, computed, defineComponent } from "vue";
+import Chart from "primevue/chart";
+import * as Moment from "moment";
+import { extendMoment } from "moment-range";
 
-import LineChartComponent from "../components/LineChart.vue";
-import BarChartComponent from "../components/BarChart.vue";
+const moment = extendMoment(Moment);
 
-export default {
-  name: "dashboard-page",
+export default defineComponent({
   components: {
-    LineChartComponent,
-    BarChartComponent,
+    Chart,
   },
-  data() {
+  setup() {
+    onMounted(() => {
+      // console.log(productService);
+      // console.log(products);
+    });
+    const makeOneWeek = () => {
+      const startDate = () => {
+        const today = new Date();
+        today.setDate(today.getDate() - 6);
+        return today;
+      };
+
+      let dateList = [];
+      const today = new Date();
+
+      for (var d = startDate(); d <= today; d.setDate(d.getDate() + 1)) {
+        const formatedDate =
+          d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        dateList.push(formatedDate);
+      }
+      return dateList;
+    };
+
+    const week = ref(makeOneWeek());
+
+    console.log(week.value);
+
+    // const convertDateToday = ref(
+    //   `${dateToday.value.getFullYear()}/${
+    //     dateToday.value.getMonth() + 1
+    //   }/${dateToday.value.getDate()}`
+    // );
+    // const day = dateToday.value.getDate();
+    // console.log(day);
+    const basicData = ref({
+      datasets: [
+        {
+          label: "My First dataset",
+          backgroundColor: "#42A5F5",
+          data: [
+            {
+              x: "1995-12-18T00:00:00",
+              y: 10,
+            },
+            {
+              x: "1995-12-21T00:00:00",
+              y: 20,
+            },
+            {
+              x: "1995-12-25T12:00:00",
+              y: 30,
+            },
+            {
+              x: "1996-01-01T00:00:00",
+              y: 40,
+            },
+            {
+              x: "",
+              y: 1,
+            },
+          ],
+        },
+        {
+          label: "My Second dataset",
+          backgroundColor: "#FFA726",
+          data: [28, 48, 40, 19, 86, 27, 90],
+        },
+      ],
+    });
+
+    const basicOptions = ref({
+      plugins: {
+        legend: {
+          labels: {
+            color: "#495057",
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: "#495057",
+          },
+          grid: {
+            color: "#ebedef",
+          },
+        },
+        y: {
+          ticks: {
+            color: "#495057",
+          },
+          grid: {
+            color: "#ebedef",
+          },
+        },
+      },
+    });
+
+    //@TODO: util内に共通化
+    const createFullDate = () => {
+      const date = new Date();
+      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    };
+    // const today = ref(createFullDate());
+
     return {
-      date: new Date().getFullYear(),
+      basicData,
+      basicOptions,
+      createFullDate,
+      // dateToday,
+      // startDate,
     };
   },
-};
+});
 </script>

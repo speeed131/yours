@@ -438,7 +438,7 @@ export default defineComponent({
     const archiveWord = async () => {
       const requestData = { ...updateWord.value };
       requestData.is_remembered = true;
-      requestData.remembered_at = new Date();
+      requestData.remembered_at = createFullDate();
       try {
         const res = await api.word.updateWord(requestData.id, requestData);
       } finally {
@@ -475,6 +475,11 @@ export default defineComponent({
       //   detail: "Products Deleted",
       //   life: 3000,
       // });
+    };
+
+    const createFullDate = () => {
+      const date = new Date();
+      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     };
 
     return {

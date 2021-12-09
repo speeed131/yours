@@ -16,6 +16,7 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    "@typescript-eslint/explicit-module-boundary-types": "off", //export関数の返り値の型定義は推論できるmものもあるため無くす。
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     // @see https://eslint.vuejs.org/rules/singleline-html-element-content-newline.html

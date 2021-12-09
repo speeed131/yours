@@ -3,7 +3,7 @@ import { IDaily } from "@/interfaces/api";
 import { utils } from "@/utils";
 
 export const daily = {
-  async postDaily(request_data: IDaily): Promise<IDaily | undefined> {
+  async postDaily(request_data: IDaily) {
     try {
       const token = utils.getLocalToken();
       const res = await axios.post<IDaily>(

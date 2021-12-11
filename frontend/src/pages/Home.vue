@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ makeData }}
     <div class="bg-blueGray-100">
       <div class="md:pt-32 pb-32 pt-12">
         <div class="px-4 md:px-10 mx-auto w-full">
@@ -913,23 +914,24 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, onMounted, computed, defineComponent } from "vue";
 import Chart from "primevue/chart";
 import * as Moment from "moment";
 import { extendMoment } from "moment-range";
-
-const moment = extendMoment(Moment);
+import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
+import { useStore } from "vuex";
+import { IWord, IWordRequest } from "@/interfaces/api";
 
 export default defineComponent({
   components: {
     Chart,
   },
   setup() {
-    onMounted(() => {
-      // console.log(productService);
-      // console.log(products);
-    });
+    const load = async () => {
+      await dispatchGetWords();
+    };
+    load();
     const makeOneWeek = () => {
       const startDate = () => {
         const today = new Date();
@@ -937,9 +939,9 @@ export default defineComponent({
         return today;
       };
 
+      //@TODO: util内に共通化
       let dateList = [];
       const today = new Date();
-
       for (var d = startDate(); d <= today; d.setDate(d.getDate() + 1)) {
         const formatedDate =
           d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -947,18 +949,11 @@ export default defineComponent({
       }
       return dateList;
     };
+    const words = computed(() => store.getters["word/words"]);
 
-    const week = ref(makeOneWeek());
-
-    console.log(week.value);
-
-    // const convertDateToday = ref(
-    //   `${dateToday.value.getFullYear()}/${
-    //     dateToday.value.getMonth() + 1
-    //   }/${dateToday.value.getDate()}`
-    // );
-    // const day = dateToday.value.getDate();
-    // console.log(day);
+    const week = ref([]);
+    const store = useStore();
+    const data = ref({});
     const basicData = ref({
       datasets: [
         {
@@ -1023,17 +1018,26 @@ export default defineComponent({
       },
     });
 
-    //@TODO: util内に共通化
-    const createFullDate = () => {
-      const date = new Date();
-      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-    };
-    // const today = ref(createFullDate());
+    onMounted(() => {
+      let makeData = [];
+      console.log(wordsvalue);
+      makeData.push(
+        words.value.filter((word: IWord) => {
+          return makeOneWeek().filter((day) => word.remembered_at === day);
+        })
+      );
+      console.log(makeOneWeek());
+      console.log(words.value);
+      console.log(makeData);
+      data.value = [...makeData];
+    });
 
     return {
       basicData,
       basicOptions,
-      createFullDate,
+      words,
+      data,
+      makeOneWeek,
       // dateToday,
       // startDate,
     };

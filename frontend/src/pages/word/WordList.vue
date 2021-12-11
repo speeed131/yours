@@ -499,6 +499,7 @@ export default defineComponent({
       exportCSV,
       confirmDeleteSelected,
       deleteSelectedWords,
+      //@TODO:ここのfileterも別関数で切り出す
       words: computed(() =>
         store.getters["word/words"].filter((item: IWord) => !item.is_remembered)
       ),

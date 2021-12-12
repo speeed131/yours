@@ -42,6 +42,7 @@ export interface IWord {
   remembered_at: string;
   created_at: Date;
   updated_at: Date;
+  converted_created_at?: string;
 }
 
 export interface IDaily {

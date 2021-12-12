@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="bg-blueGray-100">
-      <div class="md:pt-32 pb-32 pt-12">
-        <div class="px-4 md:px-10 mx-auto w-full">
-          <div>
-            <div class="card">
-              <h5>進捗</h5>
-              <Chart type="bar" :data="basicData" :options="basicOptions" />
-            </div>
-          </div>
+      <div class="pt-12">
+        <div class="mb-32 px-4 md:px-10 mx-auto w-full">
+          <!-- <div> -->
+          <!-- <div class="card"> -->
+          <h1>あなたの1週間の学習状況</h1>
+          <Chart type="bar" :data="basicData" :options="basicOptions" />
+          <!-- </div> -->
+          <!-- </div> -->
         </div>
       </div>
       <div class="px-4 md:px-10 mx-auto w-full -m-24">
@@ -914,9 +914,9 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted, computed, defineComponent, reactive } from "vue";
+import { ref, onMounted, computed, defineComponent, reactive, Ref } from "vue";
 import Chart from "primevue/chart";
-import * as Moment from "moment";
+import moment from "moment";
 import { extendMoment } from "moment-range";
 import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
 import { useStore } from "vuex";
@@ -935,19 +935,47 @@ export default defineComponent({
     const week = ref([]);
     const store = useStore();
     const wordsDataByRememberedAt = ref<IWord[][]>([]);
-    const wordsDataForGraph = ref<WordDataForGraph[]>([]);
+    const wordsDataByCreatedAt = ref<IWord[][]>([]);
+    const wordsDataByRememberedAtForGraph = ref<WordDataForGraph[]>([]);
+    const wordsDataByCreatedAtForGraph = ref<WordDataForGraph[]>([]);
 
     const load = async () => {
-      //dispatch Words
       await dispatchGetWords();
-      // 加工したデータを入れる
-      wordsDataByRememberedAt.value = await dataEquivalentDateInRememberdAt(
-        store.getters["word/words"],
+      const words = convertWordsData();
+
+      //refにすべて入れる
+      wordsDataByRememberedAt.value = await makeDataEquivalentValue(
+        words,
         "remembered_at"
       );
-      wordsDataForGraph.value = await makeDataForGraph();
+      wordsDataByCreatedAt.value = await makeDataEquivalentValue(
+        words,
+        "converted_created_at"
+      );
+      wordsDataByRememberedAtForGraph.value = await makeDataForGraph(
+        wordsDataByRememberedAt.value
+      );
+      wordsDataByCreatedAtForGraph.value = await makeDataForGraph(
+        wordsDataByCreatedAt.value
+      );
 
-      async function dataEquivalentDateInRememberdAt(
+      //＠TODO:storeの段階で追加しても良いし、変換のほうが良いかも。
+      function convertWordsData() {
+        return store.getters["word/words"].map((word: IWord) => {
+          return {
+            ...word,
+            converted_created_at: convertDate(word.created_at),
+          };
+        });
+      }
+
+      //＠TODO:utilにまとめる？
+      function convertDate(date: Date) {
+        return moment(date).format("YYYY-MM-DD");
+      }
+
+      //@TODO: 切り出す
+      async function makeDataEquivalentValue(
         words: IWord[],
         equivalentValue: keyof IWord
       ) {
@@ -960,16 +988,18 @@ export default defineComponent({
         return makeData;
       }
 
-      async function makeDataForGraph() {
+      //@TODO: 切り出す
+      async function makeDataForGraph(data: any) {
         const week = makeOneWeek();
         const makeData = week.map((day, index) => {
-          return { x: day, y: wordsDataByRememberedAt.value[index].length };
+          return { x: day, y: data[index].length };
         });
         return makeData;
       }
     };
     load();
 
+    //@TODO: util内に共通化
     function makeOneWeek() {
       const startDate = () => {
         const today = new Date();
@@ -991,14 +1021,14 @@ export default defineComponent({
     const basicData = reactive({
       datasets: [
         {
-          label: "習得した単語",
-          backgroundColor: "#42A5F5",
-          data: wordsDataForGraph,
+          label: "新しく登録した単語",
+          backgroundColor: "#FFA726",
+          data: wordsDataByCreatedAtForGraph,
         },
         {
-          label: "新規登録単語",
-          backgroundColor: "#FFA726",
-          data: [28, 48, 40, 19, 86, 27, 90],
+          label: "記憶した単語",
+          backgroundColor: "#42A5F5",
+          data: wordsDataByRememberedAtForGraph,
         },
       ],
     });
@@ -1014,6 +1044,7 @@ export default defineComponent({
       scales: {
         x: {
           ticks: {
+            beginAtZero: true,
             color: "#495057",
           },
           grid: {
@@ -1022,6 +1053,8 @@ export default defineComponent({
         },
         y: {
           ticks: {
+            max: 100,
+            stepSize: 1,
             color: "#495057",
           },
           grid: {
@@ -1037,32 +1070,10 @@ export default defineComponent({
       words: computed(() => store.getters["word/words"]),
       makeOneWeek,
       wordsDataByRememberedAt,
-      wordsDataForGraph,
-      // dateToday,
-      // startDate,
+      wordsDataByCreatedAt,
+      wordsDataByCreatedAtForGraph,
+      wordsDataByRememberedAtForGraph,
     };
   },
-  // mounted() {
-  //   // console.log(this.words);
-  //   this.dataEquivalentDateInRememberdAt(this.words);
-  // },
-  // methods: {
-  //   dataEquivalentDateInRememberdAt(words: any) {
-  //     let makeData = [];
-  //     // console.log(wordsvalue);
-  //     console.log(words);
-  //     // const wordsCopy = [...words.value];
-  //     // console.log(wordsCopy);
-  //     const data = words.filter((word: IWord) => {
-  //       return this.makeOneWeek().filter((day) => word.remembered_at === day);
-  //     });
-  //     // makeData.push(
-  //     //   words.value.filter((word: IWord) => {
-  //     //     return makeOneWeek().filter((day) => word.remembered_at === day);
-  //     //   })
-  //     // );
-  //     // data.value = [...makeData];
-  //   },
-  // },
 });
 </script>

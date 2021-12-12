@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ makeData }}
     <div class="bg-blueGray-100">
       <div class="md:pt-32 pb-32 pt-12">
         <div class="px-4 md:px-10 mx-auto w-full">
@@ -915,7 +914,7 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted, computed, defineComponent } from "vue";
+import { ref, onMounted, computed, defineComponent, reactive } from "vue";
 import Chart from "primevue/chart";
 import * as Moment from "moment";
 import { extendMoment } from "moment-range";
@@ -923,16 +922,55 @@ import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
 import { useStore } from "vuex";
 import { IWord, IWordRequest } from "@/interfaces/api";
 
+interface WordDataForGraph {
+  x: string; //Date
+  y: number;
+}
+
 export default defineComponent({
   components: {
     Chart,
   },
   setup() {
+    const week = ref([]);
+    const store = useStore();
+    const wordsDataByRememberedAt = ref<IWord[][]>([]);
+    const wordsDataForGraph = ref<WordDataForGraph[]>([]);
+
     const load = async () => {
+      //dispatch Words
       await dispatchGetWords();
+      // 加工したデータを入れる
+      wordsDataByRememberedAt.value = await dataEquivalentDateInRememberdAt(
+        store.getters["word/words"],
+        "remembered_at"
+      );
+      wordsDataForGraph.value = await makeDataForGraph();
+
+      async function dataEquivalentDateInRememberdAt(
+        words: IWord[],
+        equivalentValue: keyof IWord
+      ) {
+        const week = makeOneWeek();
+        const makeData = week.map((day: string) => {
+          return words.filter((word: IWord) => {
+            return word[equivalentValue] === day;
+          });
+        });
+        return makeData;
+      }
+
+      async function makeDataForGraph() {
+        const week = makeOneWeek();
+        const makeData = week.map((day, index) => {
+          return { x: day, y: wordsDataByRememberedAt.value[index].length };
+        });
+        return makeData;
+      }
     };
     load();
-    const makeOneWeek = () => {
+
+    function makeOneWeek() {
       const startDate = () => {
         const today = new Date();
         today.setDate(today.getDate() - 6);
@@ -948,42 +986,17 @@ export default defineComponent({
         dateList.push(formatedDate);
       }
       return dateList;
-    };
-    const words = computed(() => store.getters["word/words"]);
+    }
 
-    const week = ref([]);
-    const store = useStore();
-    const data = ref({});
-    const basicData = ref({
+    const basicData = reactive({
       datasets: [
         {
-          label: "My First dataset",
+          label: "習得した単語",
           backgroundColor: "#42A5F5",
-          data: [
-            {
-              x: "1995-12-18T00:00:00",
-              y: 10,
-            },
-            {
-              x: "1995-12-21T00:00:00",
-              y: 20,
-            },
-            {
-              x: "1995-12-25T12:00:00",
-              y: 30,
-            },
-            {
-              x: "1996-01-01T00:00:00",
-              y: 40,
-            },
-            {
-              x: "",
-              y: 1,
-            },
-          ],
+          data: wordsDataForGraph,
         },
         {
-          label: "My Second dataset",
+          label: "新規登録単語",
           backgroundColor: "#FFA726",
           data: [28, 48, 40, 19, 86, 27, 90],
         },
@@ -1018,29 +1031,38 @@ export default defineComponent({
       },
     });
 
-    onMounted(() => {
-      let makeData = [];
-      console.log(wordsvalue);
-      makeData.push(
-        words.value.filter((word: IWord) => {
-          return makeOneWeek().filter((day) => word.remembered_at === day);
-        })
-      );
-      console.log(makeOneWeek());
-      console.log(words.value);
-      console.log(makeData);
-      data.value = [...makeData];
-    });
-
     return {
       basicData,
       basicOptions,
-      words,
-      data,
+      words: computed(() => store.getters["word/words"]),
       makeOneWeek,
+      wordsDataByRememberedAt,
+      wordsDataForGraph,
       // dateToday,
       // startDate,
     };
   },
+  // mounted() {
+  //   // console.log(this.words);
+  //   this.dataEquivalentDateInRememberdAt(this.words);
+  // },
+  // methods: {
+  //   dataEquivalentDateInRememberdAt(words: any) {
+  //     let makeData = [];
+  //     // console.log(wordsvalue);
+  //     console.log(words);
+  //     // const wordsCopy = [...words.value];
+  //     // console.log(wordsCopy);
+  //     const data = words.filter((word: IWord) => {
+  //       return this.makeOneWeek().filter((day) => word.remembered_at === day);
+  //     });
+  //     // makeData.push(
+  //     //   words.value.filter((word: IWord) => {
+  //     //     return makeOneWeek().filter((day) => word.remembered_at === day);
+  //     //   })
+  //     // );
+  //     // data.value = [...makeData];
+  //   },
+  // },
 });
 </script>

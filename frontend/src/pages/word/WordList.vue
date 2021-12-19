@@ -19,14 +19,6 @@
         </template>
 
         <template #end>
-          <!-- <FileUpload
-            mode="basic"
-            accept="image/*"
-            :maxFileSize="1000000"
-            label="Import"
-            chooseLabel="Import"
-            class="mr-2 p-d-inline-block"
-          /> -->
           <Button
             label="Export"
             icon="pi pi-upload"
@@ -111,6 +103,17 @@
               :readonly="true"
               :cancel="false"
             />
+          </template>
+        </Column>
+        <Column
+          header="登録日"
+          field="created_at"
+          :sortable="true"
+          dataType="date"
+          style="min-width: 10rem"
+        >
+          <template #body="{ data }">
+            {{ convertDate(data.created_at) }}
           </template>
         </Column>
         <!-- <Column -->
@@ -242,8 +245,9 @@
       <div class="confirmation-content">
         <i class="mr-3" style="font-size: 2rem" />
         <span v-if="word"
-          >記憶済みに移動されますがよろしいですか？<b>{{ word.name }}</b></span
-        >
+          ><b>{{ updateWord.name }}</b>
+          が習得済みに移動されますがよろしいですか？
+        </span>
       </div>
       <template #footer>
         <Button
@@ -268,7 +272,6 @@
       :modal="true"
     >
       <div class="confirmation-content">
-        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
         <span v-if="word">選択したものを習得済みにしてよろしいですか？</span>
       </div>
       <template #footer>
@@ -312,6 +315,7 @@ import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
 import { useStore } from "vuex";
 import { IWord, IWordRequest } from "@/interfaces/api";
 import { api } from "@/api";
+import moment from "moment";
 
 export default defineComponent({
   components: {
@@ -482,6 +486,10 @@ export default defineComponent({
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     };
 
+    function convertDate(date: Date) {
+      return moment(date).format("YYYY-MM-DD");
+    }
+
     return {
       dt,
       wordDialog,
@@ -507,6 +515,7 @@ export default defineComponent({
       part_of_speech,
       ratings,
       updateWord,
+      convertDate,
     };
   },
 });

@@ -4,15 +4,9 @@
       <Toolbar class="p-mb-4">
         <template #start>
           <Button
-            label="New"
-            icon="pi pi-plus"
-            class="p-button-success mr-2"
-            @click="openNew"
-          />
-          <Button
             label="Not Remembered"
             icon="pi pi-refresh"
-            class="p-button-danger"
+            class="bg-indigo-800"
             @click="confirmDeleteSelected"
             :disabled="!selectedWords || !selectedWords.length"
           />
@@ -30,7 +24,7 @@
           <Button
             label="Export"
             icon="pi pi-upload"
-            class="p-button-help"
+            class="bg-indigo-800 border-white"
             @click="exportCSV()"
           />
         </template>

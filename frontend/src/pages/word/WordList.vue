@@ -6,13 +6,13 @@
           <Button
             label="New"
             icon="pi pi-plus"
-            class="bg-orange-500 mr-2"
+            class="mr-2 border-white"
             @click="openNew"
           />
           <Button
             label="Remembered"
             icon="pi pi-check"
-            class="bg-gray-700 text-gray-100"
+            class="bg-gray-700 text-gray-100 border-white"
             @click="confirmDeleteSelected"
             :disabled="!selectedWords || !selectedWords.length"
           />
@@ -30,7 +30,7 @@
           <Button
             label="Export"
             icon="pi pi-upload"
-            class="p-button-help"
+            class="bg-indigo-800 border-white"
             @click="exportCSV()"
           />
         </template>
@@ -101,7 +101,7 @@
         ></Column>
         <Column
           field="remember_rating"
-          header="記憶定着度"
+          header="重要度"
           :sortable="true"
           style="min-width: 12rem"
         >
@@ -146,7 +146,7 @@
             /> -->
             <Button
               icon="pi pi-check"
-              class="p-button-rounded p-button-warning"
+              class="p-button-rounded bg-gray-500 border-white"
               @click="confirmArchiveWord(slotProps.data)"
             />
           </template>
@@ -513,6 +513,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+::v-deep {
+  .p-button:focus {
+    box-shadow: none;
+  }
+
+  // .p-rating .p-rating-icon.pi-star-fill {
+  //   color: #f97316 !important;
+  // }
+}
+
 .table-header {
   display: flex;
   align-items: center;

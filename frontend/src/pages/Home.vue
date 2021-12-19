@@ -128,7 +128,7 @@ export default defineComponent({
         },
         {
           label: "記憶した単語",
-          backgroundColor: "#0ea5e9",
+          backgroundColor: "#4f46e5",
           data: wordsDataByRememberedAtForGraph,
         },
       ],

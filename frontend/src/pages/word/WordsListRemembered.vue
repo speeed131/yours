@@ -107,6 +107,17 @@
             />
           </template>
         </Column>
+        <Column
+          header="登録日"
+          field="created_at"
+          :sortable="true"
+          dataType="date"
+          style="min-width: 10rem"
+        >
+          <template #body="{ data }">
+            {{ convertDate(data.created_at) }}
+          </template>
+        </Column>
         <!-- <Column -->
         <!-- field="remembered_at"
           header="記憶済み"
@@ -307,6 +318,7 @@ import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
 import { useStore } from "vuex";
 import { IWord, IWordRequest } from "@/interfaces/api";
 import { api } from "@/api";
+import moment from "moment";
 
 export default defineComponent({
   components: {
@@ -473,6 +485,10 @@ export default defineComponent({
       // });
     };
 
+    function convertDate(date: Date) {
+      return moment(date).format("YYYY-MM-DD");
+    }
+
     return {
       dt,
       wordDialog,
@@ -497,6 +513,7 @@ export default defineComponent({
       part_of_speech,
       ratings,
       updateWord,
+      convertDate,
     };
   },
 });

@@ -522,16 +522,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-::v-deep {
-  // .p-button:focus {
-  //   box-shadow: none;
-  // }
-
-  // .p-rating .p-rating-icon.pi-star-fill {
-  //   color: #f97316 !important;
-  // }
-}
-
 .table-header {
   display: flex;
   align-items: center;

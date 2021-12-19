@@ -123,12 +123,12 @@ export default defineComponent({
       datasets: [
         {
           label: "新しく登録した単語",
-          backgroundColor: "#FFA726",
+          backgroundColor: "#f97316",
           data: wordsDataByCreatedAtForGraph,
         },
         {
           label: "記憶した単語",
-          backgroundColor: "#42A5F5",
+          backgroundColor: "#0ea5e9",
           data: wordsDataByRememberedAtForGraph,
         },
       ],

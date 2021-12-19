@@ -1,6 +1,6 @@
 <!-- Navbar -->
 <template>
-  <div class="bg-yellow-500">
+  <div class="bg-gray-700">
     <div class="px-4 py-4 mx-auto sm:max-w-xl md:max-w-full md:px-24 lg:px-1">
       <div class="relative flex items-center justify-between">
         <div class="flex items-center">

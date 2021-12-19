@@ -1,11 +1,11 @@
 <template>
   <Header></Header>
-  <div class="relative">
-    <div class="flex justify-between">
+  <div class="">
+    <div class="flex justify-between items-center">
       <div v-if="loginUser" class="">
         <Sidebar />
       </div>
-      <div class="flex-grow bg-gray-100">
+      <div class="flex-grow h-screen bg-gray-100">
         <router-view />
       </div>
     </div>

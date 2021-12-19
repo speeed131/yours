@@ -1,6 +1,6 @@
 <template>
   <div class="w-64 h-screen">
-    <nav class="mt-10">
+    <nav class="pt-4">
       <template v-for="(item, i) in sideBarMenu" :key="i">
         <a
           class="
@@ -8,6 +8,7 @@
             flex
             items-center
             p-2
+            mb-2
             transition-colors
             dark:hover:text-white dark:hover:bg-gray-600
             duration-200
@@ -45,18 +46,18 @@ export default defineComponent({
         {
           title: "未習得の単語一覧",
           routeName: "Words",
-          class: "fas fa-user-circle",
+          class: "fas fa-th-list",
         },
         {
           title: "習得済みの単語一覧",
           routeName: "WordsRemembered",
-          class: "fas fa-newspaper",
+          class: "fas fa-check-circle",
         },
-        {
-          title: "作成した日記一覧",
-          routeName: "Dailies",
-          class: "fas fa-fingerprint",
-        },
+        // {
+        //   title: "作成した日記一覧",
+        //   routeName: "Dailies",
+        //   class: "fas fa-fingerprint",
+        // },
       ],
     });
     return {

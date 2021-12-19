@@ -6,13 +6,13 @@
           <Button
             label="New"
             icon="pi pi-plus"
-            class="p-button-success mr-2"
+            class="bg-orange-500 mr-2"
             @click="openNew"
           />
           <Button
             label="Remembered"
             icon="pi pi-check"
-            class="p-button-danger"
+            class="bg-gray-700 text-gray-100"
             @click="confirmDeleteSelected"
             :disabled="!selectedWords || !selectedWords.length"
           />
@@ -47,7 +47,7 @@
         :filters="filters"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[10, 25, 50, 100]"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} words"
       >
         <template #header>
           <div

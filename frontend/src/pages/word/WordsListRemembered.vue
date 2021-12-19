@@ -6,7 +6,7 @@
           <Button
             label="Not Remembered"
             icon="pi pi-refresh"
-            class="bg-indigo-800"
+            class="bg-indigo-500"
             @click="confirmDeleteSelected"
             :disabled="!selectedWords || !selectedWords.length"
           />
@@ -140,7 +140,7 @@
             /> -->
             <Button
               icon="pi pi-refresh"
-              class="p-button-rounded p-button-warning"
+              class="p-button-rounded bg-indigo-500"
               @click="confirmArchiveWord(slotProps.data)"
             />
           </template>

@@ -67,10 +67,7 @@
                 placeholder-gray-400
                 shadow-sm
                 text-base
-                focus:outline-none
-                focus:ring-2
-                focus:ring-yellow-600
-                focus:border-transparent
+                focus:outline-none focus:ring-2 focus:border-transparent
               "
               placeholder="ユーザーネーム"
             />
@@ -121,24 +118,18 @@
                 placeholder-gray-400
                 shadow-sm
                 text-base
-                focus:outline-none
-                focus:ring-2
-                focus:ring-yellow-600
-                focus:border-transparent
+                focus:outline-none focus:ring-2 focus:border-transparent
               "
               placeholder="パスワード"
             />
           </div>
         </div>
         <div class="flex w-full">
-          <button
-            type="submit"
+          <Button
+            label="ログイン"
             class="
               py-2
               px-4
-              bg-yellow-500
-              hover:bg-yellow-600
-              focus:ring-yellow-400 focus:ring-offset-yellow-100
               text-white
               w-full
               transition
@@ -150,9 +141,8 @@
               focus:outline-none focus:ring-2 focus:ring-offset-2
               rounded-lg
             "
-          >
-            ログイン
-          </button>
+            type="submit"
+          />
         </div>
       </form>
     </div>
@@ -179,8 +169,12 @@
 import "primeicons/primeicons.css";
 import { defineComponent, ref, reactive, toRefs } from "vue";
 import { useStore } from "vuex";
+import Button from "primevue/button";
 
 export default defineComponent({
+  components: {
+    Button,
+  },
   /**
    @see https://v3.ja.vuejs.org/guide/composition-api-setup.html#%E5%BC%95%E6%95%B0
   */

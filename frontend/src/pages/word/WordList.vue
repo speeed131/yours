@@ -514,9 +514,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 ::v-deep {
-  .p-button:focus {
-    box-shadow: none;
-  }
+  // .p-button:focus {
+  //   box-shadow: none;
+  // }
 
   // .p-rating .p-rating-icon.pi-star-fill {
   //   color: #f97316 !important;

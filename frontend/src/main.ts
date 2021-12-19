@@ -15,6 +15,5 @@ import "primeicons/primeicons.css"; // アイコン
 import "/node_modules/primeflex/primeflex.css"; // primeflex
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "./variables.css";
 
 createApp(App).use(store).use(router).use(PrimeVue).mount("#app");

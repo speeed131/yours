@@ -6,9 +6,15 @@
           <Button
             label="Not Remembered"
             icon="pi pi-refresh"
-            class="bg-gray-700 border-white"
+            class="mr-2 bg-gray-700 border-white"
             @click="confirmDeleteSelected"
             :disabled="!selectedWords || !selectedWords.length"
+          />
+          <Button
+            label="Skeleton meaning"
+            icon="pi pi-eye-slash"
+            class="border-white bg-indigo-500"
+            @click="skeletonColor"
           />
         </template>
 
@@ -320,6 +326,8 @@ export default defineComponent({
     const wordDialog = ref(false);
     const archiveWordDialog = ref(false);
     const deleteProductsDialog = ref(false);
+    const meaningColor = ref("#3f3f46");
+
     //@TODO: このwordをstoreで管理する?
     const word = ref<IWordRequest>({
       user_id: 0,
@@ -438,6 +446,10 @@ export default defineComponent({
     const confirmDeleteSelected = () => {
       deleteProductsDialog.value = true;
     };
+    const skeletonColor = () => {
+      meaningColor.value =
+        meaningColor.value === "#3f3f46" ? "#fff" : "#3f3f46";
+    };
     const deleteSelectedWords = async () => {
       try {
         selectedWords.value.forEach((item: IWord) => {
@@ -486,6 +498,8 @@ export default defineComponent({
       ratings,
       updateWord,
       convertDate,
+      meaningColor,
+      skeletonColor,
     };
   },
 });

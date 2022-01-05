@@ -70,29 +70,25 @@
           field="name"
           header="単語名"
           :sortable="true"
-          style="min-width: 12rem"
+          style="min-width: 12rem; max-width: 18rem; word-break: break-all"
         ></Column>
         <Column
           field="meaning_japanese"
           header="意味"
           :sortable="true"
-          style="min-width: 16rem"
+          style="min-width: 16rem; max-width: 18rem; word-break: break-all"
+          :style="{ color: meaningColor }"
         ></Column>
-        <!-- <Column header="Image">
-          <template #body="slotProps">
-            <img
-              src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
-              :alt="slotProps.data.image"
-              class="word-image"
-            />
-          </template>
-        </Column> -->
         <Column
           field="memo"
           header="メモ"
           :sortable="true"
-          style="min-width: 10rem"
-        ></Column>
+          style="min-width: 14rem; max-width: 14rem; word-break: break-all"
+        >
+          <!-- <template #body="{ data }">
+            {{ shrinkDescription(data.memo) }}
+          </template> -->
+        </Column>
         <Column
           field="remember_rating"
           header="重要度"
@@ -118,30 +114,6 @@
             {{ convertDate(data.created_at) }}
           </template>
         </Column>
-        <!-- <Column -->
-        <!-- field="remembered_at"
-          header="記憶済み"
-          :sortable="true"
-          style="min-width: 6rem"
-        >
-          <template #body="slotProps">
-            <template v-if="slotProps.data.remembered_at === ''">
-              <i  class="pi pi-check"></i>
-            </template>
-          <template>
-        </Column> -->
-        <!-- <Column
-          field="remembered_at"
-          header="記憶済み"
-          :sortable="true"
-          style="min-width: 6rem"
-        >
-          <template #body="slotProps">
-            <span v-if="slotProps.data.remembered_at !== ''">
-              <i class="pi pi-check"></i>
-            </span>
-          </template>
-        </Column> -->
         <Column :exportable="false" style="min-width: 4rem">
           <template #body="slotProps">
             <!-- <Button

@@ -12,9 +12,15 @@
           <Button
             label="Remembered"
             icon="pi pi-check"
-            class="bg-gray-700 text-gray-100 border-white"
+            class="mr-2 bg-gray-700 text-gray-100 border-white"
             @click="confirmDeleteSelected"
             :disabled="!selectedWords || !selectedWords.length"
+          />
+          <Button
+            label="Skeleton meaning"
+            icon="pi pi-eye-slash"
+            class="border-white bg-indigo-500"
+            @click="skeletonColor"
           />
         </template>
 
@@ -75,16 +81,8 @@
           header="意味"
           :sortable="true"
           style="min-width: 16rem; max-width: 18rem; word-break: break-all"
+          :style="{ color: meaningColor }"
         ></Column>
-        <!-- <Column header="Image">
-          <template #body="slotProps">
-            <img
-              src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
-              :alt="slotProps.data.image"
-              class="word-image"
-            />
-          </template>
-        </Column> -->
         <Column
           field="memo"
           header="メモ"
@@ -120,30 +118,6 @@
             {{ convertDate(data.created_at) }}
           </template>
         </Column>
-        <!-- <Column -->
-        <!-- field="remembered_at"
-          header="記憶済み"
-          :sortable="true"
-          style="min-width: 6rem"
-        >
-          <template #body="slotProps">
-            <template v-if="slotProps.data.remembered_at === ''">
-              <i  class="pi pi-check"></i>
-            </template>
-          <template>
-        </Column> -->
-        <!-- <Column
-          field="remembered_at"
-          header="記憶済み"
-          :sortable="true"
-          style="min-width: 6rem"
-        >
-          <template #body="slotProps">
-            <span v-if="slotProps.data.remembered_at !== ''">
-              <i class="pi pi-check"></i>
-            </span>
-          </template>
-        </Column> -->
         <Column :exportable="false" style="min-width: 4rem">
           <template #body="slotProps">
             <!-- <Button
@@ -349,6 +323,7 @@ export default defineComponent({
     const wordDialog = ref(false);
     const archiveWordDialog = ref(false);
     const deleteProductsDialog = ref(false);
+    const meaningColor = ref("#3f3f46");
     //@TODO: このwordをstoreで管理する?
     const word = ref<IWordRequest>({
       user_id: 0,
@@ -466,6 +441,10 @@ export default defineComponent({
     const confirmDeleteSelected = () => {
       deleteProductsDialog.value = true;
     };
+    const skeletonColor = () => {
+      meaningColor.value =
+        meaningColor.value === "#3f3f46" ? "#fff" : "#3f3f46";
+    };
     const deleteSelectedWords = async () => {
       try {
         selectedWords.value.forEach((item: IWord) => {
@@ -506,6 +485,7 @@ export default defineComponent({
 
     return {
       dt,
+      meaningColor,
       wordDialog,
       archiveWordDialog,
       deleteProductsDialog,
@@ -531,6 +511,7 @@ export default defineComponent({
       updateWord,
       convertDate,
       shrinkDescription,
+      skeletonColor,
     };
   },
 });

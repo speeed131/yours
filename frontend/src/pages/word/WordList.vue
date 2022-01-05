@@ -68,13 +68,13 @@
           field="name"
           header="単語名"
           :sortable="true"
-          style="min-width: 12rem"
+          style="min-width: 12rem; max-width: 18rem; word-break: break-all"
         ></Column>
         <Column
           field="meaning_japanese"
           header="意味"
           :sortable="true"
-          style="min-width: 16rem"
+          style="min-width: 16rem; max-width: 18rem; word-break: break-all"
         ></Column>
         <!-- <Column header="Image">
           <template #body="slotProps">
@@ -89,8 +89,12 @@
           field="memo"
           header="メモ"
           :sortable="true"
-          style="min-width: 10rem"
-        ></Column>
+          style="min-width: 14rem; max-width: 14rem; word-break: break-all"
+        >
+          <!-- <template #body="{ data }">
+            {{ shrinkDescription(data.memo) }}
+          </template> -->
+        </Column>
         <Column
           field="remember_rating"
           header="重要度"
@@ -490,6 +494,16 @@ export default defineComponent({
       return moment(date).format("YYYY-MM-DD");
     }
 
+    function shrinkDescription(value: string) {
+      if (typeof value !== "string" || value.length === 0) {
+        return "なし";
+      } else if (value.length < 20) {
+        return value;
+      } else {
+        return value.slice(0, 20) + "…";
+      }
+    }
+
     return {
       dt,
       wordDialog,
@@ -516,6 +530,7 @@ export default defineComponent({
       ratings,
       updateWord,
       convertDate,
+      shrinkDescription,
     };
   },
 });

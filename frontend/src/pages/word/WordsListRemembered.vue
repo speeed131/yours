@@ -261,7 +261,7 @@
           label="Yes"
           icon="pi pi-check"
           class="p-button-text"
-          @click="archiveWord()"
+          @click="NotArchivedWord()"
         />
       </template>
     </Dialog>
@@ -443,7 +443,7 @@ export default defineComponent({
       archiveWordDialog.value = true;
     };
     //@TODO: updateWordのvalueで更新しているが、それなら引数で関数に入れたほうが良い書き方な気がするのでリファクタ
-    const archiveWord = async () => {
+    const NotArchivedWord = async () => {
       const requestData = { ...updateWord.value };
       requestData.is_remembered = false;
       requestData.remembered_at = "";
@@ -471,7 +471,7 @@ export default defineComponent({
         selectedWords.value.forEach((item: IWord) => {
           updateWord.value = item;
           console.log(updateWord.value);
-          archiveWord();
+          NotArchivedWord();
         });
       } finally {
         await store.dispatch("word/getWords");
@@ -502,7 +502,7 @@ export default defineComponent({
       hideDialog,
       saveProduct,
       confirmArchiveWord,
-      archiveWord,
+      NotArchivedWord,
       exportCSV,
       confirmDeleteSelected,
       deleteSelectedWords,

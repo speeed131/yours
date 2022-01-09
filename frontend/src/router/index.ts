@@ -41,15 +41,6 @@ const routes: Array<RouteRecordRaw> = [
         component: Home,
       },
       {
-        path: "about",
-        name: "About",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "about" */ "@/pages/About.vue"),
-      },
-      {
         path: "words",
         name: "Words",
         component: WordList,
@@ -80,7 +71,7 @@ router.beforeEach(async (to, from) => {
   // eslint-disable-next-line no-constant-condition
   const isSuccess = await store.dispatch("auth/getUserMe");
 
-  if (to.name === "Login" || to.name === "Register") {
+  if (to.name === "Login" || to.name === "Register" || to.name === "Landing") {
     return isSuccess ? "/home" : true;
   }
 

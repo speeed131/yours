@@ -112,12 +112,19 @@ export default defineComponent({
       let dateList = [];
       const today = new Date();
       for (var d = startDate(); d <= today; d.setDate(d.getDate() + 1)) {
-        const formatedDate =
-          d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        const formatedDate = moment(d).format("YYYY-MM-DD");
+        // const formatedDate =
+        //   d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         dateList.push(formatedDate);
       }
       return dateList;
     }
+
+    // fucntion plusZeroForFirstNum(num) {
+    //   if (num < 10) {
+
+    //   }
+    // }
 
     const basicData = reactive({
       datasets: [

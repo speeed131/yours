@@ -74,7 +74,7 @@
           field="name"
           header="単語名"
           :sortable="true"
-          style="min-width: 12rem; max-width: 18rem; word-break: break-all"
+          style="min-width: 12rem; max-width: 16rem; word-break: break-all"
         ></Column>
         <Column
           field="meaning_japanese"
@@ -466,7 +466,7 @@ export default defineComponent({
 
     const createFullDate = () => {
       const date = new Date();
-      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+      return moment(date).format("YYYY-MM-DD");
     };
 
     function convertDate(date: Date) {

@@ -76,7 +76,7 @@
           field="name"
           header="単語名"
           :sortable="true"
-          style="min-width: 12rem; max-width: 18rem; word-break: break-all"
+          style="min-width: 12rem; max-width: 16rem; word-break: break-all"
         ></Column>
         <Column
           field="meaning_japanese"

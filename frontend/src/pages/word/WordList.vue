@@ -44,7 +44,7 @@
         :rows="10"
         :filters="filters"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        :rowsPerPageOptions="[10, 25, 50, 100]"
+        :rowsPerPageOptions="[5, 10, 25, 50]"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} words"
       >
         <template #header>
@@ -74,13 +74,13 @@
           field="name"
           header="単語名"
           :sortable="true"
-          style="min-width: 12rem; max-width: 16rem; word-break: break-all"
+          style="min-width: 10rem; max-width: 14rem; word-break: break-all"
         ></Column>
         <Column
           field="meaning_japanese"
           header="意味"
           :sortable="true"
-          style="min-width: 16rem; max-width: 18rem; word-break: break-all"
+          style="min-width: 10rem; max-width: 14rem; word-break: break-all"
           :style="{ color: meaningColor }"
         ></Column>
         <Column
@@ -112,7 +112,7 @@
           field="created_at"
           :sortable="true"
           dataType="date"
-          style="min-width: 10rem"
+          style="min-width: 8rem"
         >
           <template #body="{ data }">
             {{ convertDate(data.created_at) }}
@@ -275,18 +275,18 @@ import "primeicons/primeicons.css";
 // import "primeicons/prime.css";
 import { ref, onMounted, computed, defineComponent } from "vue";
 import { FilterMatchMode } from "primevue/api";
-import { useToast } from "primevue/usetoast";
+
 import Button from "primevue/button";
-// import FileUpload from "primevue/fileupload";
+
 import Toolbar from "primevue/toolbar";
 import InputText from "primevue/inputtext";
 import Column from "primevue/column";
 import Rating from "primevue/rating";
 import DataTable from "primevue/datatable";
 import Textarea from "primevue/textarea";
-// import Dropdown from "primevue/dropdown";
+
 import MultiSelect from "primevue/multiselect";
-// import InputNumber from "primevue/inputnumber";
+
 import RadioButton from "primevue/radiobutton";
 import Dialog from "primevue/dialog";
 import { dispatchGetWords, dispatchPostWord } from "@/hooks/useWords";
